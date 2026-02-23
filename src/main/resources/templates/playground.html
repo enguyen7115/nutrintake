@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Playground</title>
+</head>
+<body>
+
+<h1>Thymeleaf Test</h1>
+
+<p>Hello <span th:text="${name}">NameHere</span>!</p>
+
+<p>The number is <span th:text="${number}">0</span>.</p>
+<h2>Foods list</h2>
+<ul>
+    <li th:each="f : ${foods}" th:text="${f}">Food</li>
+</ul>
+
+<p th:if="${overSugar}">⚠️ You are over your sugar limit today.</p>
+<p th:unless="${overSugar}">✅ Sugar is within your limit.</p>
+
+</body>
+</html>
