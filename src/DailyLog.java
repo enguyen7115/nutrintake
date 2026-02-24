@@ -30,7 +30,7 @@ public class DailyLog{
     public int getTotalSugars(){
         int total = 0;
         for(Food food : foods){
-            total += food.getProteins();
+            total += food.getSugars();
         }
         return total;
     }
