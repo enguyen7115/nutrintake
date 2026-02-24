@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        ArrayList<Food> Log = new ArrayList<>();
+        DailyLog log = new DailyLog();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -32,17 +32,13 @@ public class Main {
                     int sugar = Integer.valueOf(scanner.nextLine());
 
                     Food food = new Food (name, calories, protein, sugar);
-                    Log.add(food);
+                    log.addFood(food);
 
                     break;
 
                 case 2:
 
-                    for (Food data: Log) {
-                        System.out.println(data.getAll());
-                        System.out.println("");
-
-                    }
+                    log.printLog();
 
                     break;
 
