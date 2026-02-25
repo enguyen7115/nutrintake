@@ -44,6 +44,10 @@ public class Main {
 
                 case 3:
                     return;
+
+                default:
+                    System.out.println("Wrong choice");
+                    return;
             }
         }
     }
