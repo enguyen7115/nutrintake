@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>NutriTrack - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<!--div th:replace="fragments/header :: header"></div>-->
+
+<main class="container">
+    <div class="flash" th:if="${msg}" th:text="${msg}"></div>
+    <section class="card totals">
+        <h2>Today's Totals — <span th:text="${viewDate}">2026-02-21</span></h2>
+        <div class="totals-grid">
+            <div class="stat">
+                <div class="label">Calories</div>
+                <div class="value" th:text="${calories}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Protein (g)</div>
+                <div class="value" th:text="${protein}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sugar (g)</div>
+                <div class="value" th:text="${sugar}">0</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card input-and-list">
+        <section class="card">
+            <h2>Create Food</h2>
+
+            <form th:action="@{/foods}" method="post" class="small-form">
+                <label>Name
+                    <input name="name" required placeholder="e.g., Oatmeal"/>
+                </label>
+
+                <label>Calories (per serving)
+                    <input name="calories" type="number" step="0.1" min="0" required/>
+                </label>
+
+                <label>Protein (g per serving)
+                    <input name="protein" type="number" step="0.1" min="0" required/>
+                </label>
+
+                <label>Sugar (g per serving)
+                    <input name="sugar" type="number" step="0.1" min="0" required/>
+                </label>
+
+                <label>Date
+                    <input name="date" type="date" th:value="${viewDate}" />
+                </label>
+
+                <div class="form-actions">
+                    <button type="submit">Create</button>
+                </div>
+            </form>
+
+            <h3>Saved Foods</h3>
+            <table class="table">
+                <thead>
+                <tr><th>Name</th><th>Calories</th><th>Protein</th><th>Sugar</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="f : ${foods}">
+                    <td th:text="${f.name}">Food</td>
+                    <td th:text="${f.calories}">0</td>
+                    <td th:text="${f.protein}">0</td>
+                    <td th:text="${f.sugar}">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="left">
+            <h3>Add Food (placeholder)</h3>
+            <form th:action="@{/logs}" method="post" class="small-form">
+                <label>Food
+                    <select name="foodName">
+                        <option th:each="f : ${foods}" th:value="${f.name}" th:text="${f.name}">Food</option>
+                    </select>
+                </label>
+                <label>Servings
+                    <input name="servings" type="number" step="1" value="1" />
+                </label>
+                <div class="form-actions">
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="right">
+            <h3>What I’ve Eaten (Today)</h3>
+
+            <table class="table">
+                <thead><tr><th>Food</th><th>Servings</th><th>Calories</th></tr></thead>
+                <tbody>
+                <tr th:each="log : ${logs}">
+                    <td th:text="${log.foodName}">Oatmeal</td>
+                    <td th:text="${log.servings}">1</td>
+                    <td th:text="${log.calories}">300</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+</main>
+</body>
+</html>
