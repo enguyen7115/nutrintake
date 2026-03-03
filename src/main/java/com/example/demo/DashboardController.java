@@ -42,6 +42,12 @@ public class DashboardController {
         return "dashboard";
     }
 
+    @GetMapping("/foods")
+    public String foods(Model model) {
+        model.addAttribute("foods", foods);
+        return "foods";
+    }
+
     @PostMapping("/foods")
     public String createFood(
             @RequestParam String name,

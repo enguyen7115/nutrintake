@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="header" th:fragment="header">
+    <div class="header-inner container">
+        <div class="brand">
+            <span class="brand-name">NutriTrack</span>
+        </div>
+
+        <nav class="nav">
+            <a th:href="@{/dashboard}" class="nav-link">Dashboard</a>
+            <a th:href="@{/foods}" class="nav-link">Foods</a>
+            <a th:href="@{/goals}" class="nav-link">Goals</a>
+        </nav>
+
+        <div class="header-actions">
+            <!-- placeholder logout, need to wrie later -->
+            <a th:href="@{/login}" class="btn btn-outline">Logout</a>
+        </div>
+    </div>
+</header>
+</body>
+</html>
