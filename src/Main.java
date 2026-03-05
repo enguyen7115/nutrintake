@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -11,15 +10,31 @@ public class Main {
 
         while (true) {
 
-            System.out.println("1. Add Food");
-            System.out.println("2. Get Daily Log");
-            System.out.println("3. Exit");
+            System.out.println("1. Add Daily Goal");
+            System.out.println("2. Add Food");
+            System.out.println("3. Get Daily Log");
+            System.out.println("4. Exit");
             System.out.println("Enter your choice by number");
             int choice = Integer.valueOf(scanner.nextLine());
 
             switch (choice) {
 
                 case 1:
+
+                    System.out.println("Enter Daily Calorie Goal");
+                    int caloriesGoal = Integer.valueOf(scanner.nextLine());
+                    System.out.println("Enter Daily Protein Goal");
+                    int proteinGoal = Integer.valueOf(scanner.nextLine());
+                    System.out.println("Enter Daily Sugar Goal");
+                    int sugarGoal = Integer.valueOf(scanner.nextLine());
+
+                    DailyGoal goalLog = new DailyGoal(caloriesGoal, proteinGoal, sugarGoal);
+                    log.addGoal(goalLog);
+
+                    break;
+
+
+                case 2:
 
                     System.out.println("Enter Food Name: ");
                     String name = scanner.nextLine();
@@ -36,13 +51,14 @@ public class Main {
 
                     break;
 
-                case 2:
+
+                case 3:
 
                     log.printLog();
 
                     break;
 
-                case 3:
+                case 4:
                     return;
 
                 default:

@@ -2,10 +2,14 @@ import java.util.ArrayList;
 
 public class DailyLog{
     private ArrayList<Food> foods = new ArrayList<>();
+    private ArrayList<DailyGoal> goalLog = new ArrayList<>();
 
     //Adds food to array list
     public void addFood(Food food){
         foods.add(food);
+    }
+    public void addGoal(DailyGoal goal) {
+        goalLog.add(goal);
     }
 
     //Calculates the total calorie amount of current food input
