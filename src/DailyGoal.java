@@ -3,11 +3,13 @@ public class DailyGoal {
     private int caloriesGoal = 0;
     private int proteinGoal = 0;
     private int sugarGoal = 0;
+    private int id;
 
-    public DailyGoal(int caloriesGoal, int proteinGoal, int sugarGoal) {
+    public DailyGoal(int id, int caloriesGoal, int proteinGoal, int sugarGoal) {
         this.caloriesGoal = caloriesGoal;
         this.proteinGoal = proteinGoal;
         this.sugarGoal = sugarGoal;
+        this.id = id;
     }
 
     public int getCaloriesGoal() {

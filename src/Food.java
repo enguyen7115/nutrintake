@@ -3,13 +3,17 @@ public class Food {
     private int calories = 0;
     private int proteins = 0;
     private int sugars = 0;
+    private int id;
 
-    public Food(String name, int calories, int proteins, int sugars) {
+    public Food(String name, int calories, int proteins, int sugars, int id) {
         this.name = name;
         this.calories = calories;
         this.proteins = proteins;
         this.sugars = sugars;
+        this.id = id;
     }
+
+    public int getId() { return id; }
 
     public String getName() {
         return name;

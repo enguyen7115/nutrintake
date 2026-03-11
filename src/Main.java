@@ -5,6 +5,10 @@ public class Main {
 
         DailyLog log = new DailyLog();
 
+        DatabaseManager.initializeDatabase();
+
+        NutritionService service = new NutritionService();
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -34,8 +38,8 @@ public class Main {
 
                     System.out.println("");
 
-                    DailyGoal goalLog = new DailyGoal(caloriesGoal, proteinGoal, sugarGoal);
-                    log.addGoal(goalLog);
+                    //DailyGoal goalLog = new DailyGoal(caloriesGoal, proteinGoal, sugarGoal);
+                    //log.addGoal(goalLog);
 
                     break;
 
@@ -50,8 +54,8 @@ public class Main {
                     System.out.println("Enter Sugar Amount: ");
                     int sugar = Integer.valueOf(scanner.nextLine());
 
-                    Food food = new Food (name, calories, protein, sugar);
-                    log.addFood(food);
+                    service.addFood(name, calories, protein, sugar);
+
 
                     break;
 
