@@ -2,12 +2,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Scanner;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
 
 public class registerUser {
 
     private static final String filePath = "AccountData.txt";
 
     public static void main(String[] args) {
+
+        DatabaseManager.initializeDatabase();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter new username: ");
         String username = scanner.nextLine();
@@ -40,13 +44,23 @@ public class registerUser {
     }
 
     public static void saveUser(String username, String salt, String hashedPassword) {
-        try{
-            FileWriter mywriter = new FileWriter(filePath, true);
+        String sql = "INSERT INTO users (username, salt, passwordHash) VALUES (?, ?, ?)";
 
-            mywriter.write(username + "," + salt + "," + hashedPassword + "\n");
+        try(Connection connection = DatabaseManager.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            mywriter.close();
-        } catch (IOException e) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, salt);
+            preparedStatement.setString(3, hashedPassword);
+
+            preparedStatement.executeUpdate();
+
+            //FileWriter mywriter = new FileWriter(filePath, true);
+
+            //mywriter.write(username + "," + salt + "," + hashedPassword + "\n");
+
+            //mywriter.close();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
