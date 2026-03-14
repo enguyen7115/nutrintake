@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        DailyLog log = new DailyLog();
+        //DailyLog log = new DailyLog();
 
         DatabaseManager.initializeDatabase();
 
@@ -38,6 +38,8 @@ public class Main {
 
                     System.out.println("");
 
+                    service.addDailyGoal(caloriesGoal, proteinGoal, sugarGoal);
+
                     //DailyGoal goalLog = new DailyGoal(caloriesGoal, proteinGoal, sugarGoal);
                     //log.addGoal(goalLog);
 
@@ -61,7 +63,9 @@ public class Main {
 
                 case 3:
 
-                    log.printLog();
+
+
+                    //log.printLog();
 
                     break;
 
