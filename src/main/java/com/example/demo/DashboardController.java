@@ -20,7 +20,7 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        model.addAttribute("viewDate", "2026-02-22");
+        model.addAttribute("viewDate", "2026-02-23");
 
         model.addAttribute("foods", foods);
         model.addAttribute("logs", logs);
