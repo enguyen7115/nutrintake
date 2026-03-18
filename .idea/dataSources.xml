@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\atusn\Music\Github Labs\nutrintake\nutrition.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="nutrition" uuid="14016084-de68-4c4a-b5a0-f4d8cb78a4b2">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/nutrition.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

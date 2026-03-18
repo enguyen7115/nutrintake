@@ -43,6 +43,15 @@ public class DatabaseManager {
                 );
             """);
 
+            stmt.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    salt TEXT NOT NULL,
+    passwordHash TEXT NOT NULL
+)
+""");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

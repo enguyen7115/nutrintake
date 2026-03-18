@@ -20,4 +20,23 @@ public class NutritionService {
             e.printStackTrace();
         }
     }
+
+    public void addDailyGoal(int caloriesGoal, int proteinGoal, int sugarGoal) {
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "INSERT INTO daily_goals(calories, protein, sugar) VALUES (?, ?, ?)";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, caloriesGoal);
+            stmt.setInt(2, proteinGoal);
+            stmt.setInt(3, sugarGoal);
+
+            stmt.executeUpdate();
+        }
+
+        catch (Exception e) {
+            System.out.println("Exception in addDailyGoal");
+        }
+    }
 }
