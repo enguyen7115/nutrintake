@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>NutriTrack - Dashboard</title>
+    <title>Nutrintake - Dashboard</title>
     <!-- Link to shared stylesheet -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -36,6 +37,44 @@
             </div>
         </div>
     </section>
+    <div class="card goals-summary">
+        <h3>Goals Progress</h3>
+
+        <div class="chart-row">
+            <div class="chart-box">
+                <h4>Calories</h4>
+                <canvas id="calorieChart"></canvas>
+                <p>
+                    <span th:text="${calories}"></span> /
+                    <span th:text="${calorieGoal}"></span>
+                </p>
+
+                <p class="status"
+                   th:text="${calories > calorieGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Protein</h4>
+                <canvas id="proteinChart"></canvas>
+                <p>
+                    <span th:text="${protein}"></span> /
+                    <span th:text="${proteinGoal}"></span>
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Sugar</h4>
+                <canvas id="sugarChart"></canvas>
+                <p>
+                    <span th:text="${sugar}"></span> /
+                    <span th:text="${sugarGoal}"></span>
+                </p>
+            </div>
+        </div>
+
+        <a class="back-link" th:href="@{/goals}">Edit Goals</a>
+    </div>
 
     <!-- Main dashboard interaction area -->
     <section class="card input-and-list">
@@ -127,5 +166,51 @@
         </div>
     </section>
 </main>
+<script th:inline="javascript">
+    const calories = [[${calories}]];
+    const calorieGoal = [[${calorieGoal}]];
+    const protein = [[${protein}]];
+    const proteinGoal = [[${proteinGoal}]];
+    const sugar = [[${sugar}]];
+    const sugarGoal = [[${sugarGoal}]];
+
+    function makeDonutChart(canvasId, value, goal) {
+        let data;
+        let colors;
+
+        if (value <= goal) {
+            // Normal case
+            data = [value, goal - value];
+            colors = ['#4CAF50', '#ddd']; // green + gray
+        } else {
+            // Over goal
+            data = [goal, value - goal];
+            colors = ['#4CAF50', '#2196F3']; // green + BLUE
+        }
+
+        new Chart(document.getElementById(canvasId), {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    makeDonutChart('calorieChart', calories, calorieGoal);
+    makeDonutChart('proteinChart', protein, proteinGoal);
+    makeDonutChart('sugarChart', sugar, sugarGoal);
+</script>
 </body>
 </html>

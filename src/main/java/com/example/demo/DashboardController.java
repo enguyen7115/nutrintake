@@ -58,6 +58,10 @@ public class DashboardController {
         model.addAttribute("protein", totalProtein);
         model.addAttribute("sugar", totalSugar);
 
+        model.addAttribute("calorieGoal", calorieGoal);
+        model.addAttribute("proteinGoal", proteinGoal);
+        model.addAttribute("sugarGoal", sugarGoal);
+
         return "dashboard";
     }
 
