@@ -3,15 +3,24 @@
 <head>
     <meta charset="utf-8" />
     <title>NutriTrack - Dashboard</title>
+    <!-- Link to shared stylesheet -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
+
+<!-- Reusable navigation header fragment -->
 <div th:replace="fragments/header :: header"></div>
 
 <main class="container">
+
+    <!-- Flash message (success or error message after submission) -->
     <div class="flash" th:if="${msg}" th:text="${msg}"></div>
+
+    <!-- Daily totals section -->
     <section class="card totals">
         <h2>Today's Totals — <span th:text="${viewDate}">2026-02-21</span></h2>
+
+        <!-- Nutrient totals dynamically populated from controller -->
         <div class="totals-grid">
             <div class="stat">
                 <div class="label">Calories</div>
@@ -28,15 +37,20 @@
         </div>
     </section>
 
+    <!-- Main dashboard interaction area -->
     <section class="card input-and-list">
+
+        <!-- Food creation section -->
         <section class="card">
             <h2>Create Food</h2>
 
+            <!-- Food name input -->
             <form th:action="@{/foods}" method="post" class="small-form">
                 <label>Name
                     <input name="name" required placeholder="e.g., Oatmeal"/>
                 </label>
 
+                <!-- Nutrient inputs per serving -->
                 <label>Calories (per serving)
                     <input name="calories" type="number" step="0.1" min="0" required/>
                 </label>
@@ -49,6 +63,7 @@
                     <input name="sugar" type="number" step="0.1" min="0" required/>
                 </label>
 
+                <!-- Date input (defaults to selected date) -->
                 <label>Date
                     <input name="date" type="date" th:value="${viewDate}" />
                 </label>
@@ -58,12 +73,15 @@
                 </div>
             </form>
 
+            <!-- Date input (defaults to selected date) -->
             <h3>Saved Foods</h3>
             <table class="table">
                 <thead>
                 <tr><th>Name</th><th>Calories</th><th>Protein</th><th>Sugar</th></tr>
                 </thead>
                 <tbody>
+
+                <!-- Loop through foods list -->
                 <tr th:each="f : ${foods}">
                     <td th:text="${f.name}">Food</td>
                     <td th:text="${f.calories}">0</td>
@@ -74,6 +92,7 @@
             </table>
         </section>
 
+        <!-- Loop through foods list -->
         <div class="left">
             <h3>Add Food (placeholder)</h3>
             <form th:action="@{/logs}" method="post" class="small-form">
