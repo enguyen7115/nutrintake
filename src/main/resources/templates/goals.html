@@ -6,23 +6,66 @@
   <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<h1>Nutrition Goals</h1>
 
-<p th:if="${msg}" th:text="${msg}"></p>
+<div class="container">
+  <div class="nav">
+    <a th:href="@{/dashboard}">Dashboard</a>
+    <a th:href="@{/goals}">Goals</a>
+  </div>
 
-<form th:action="@{/goals}" method="post">
-  <label>Calorie Goal:</label>
-  <input type="number" step="0.1" name="calorieGoal" th:value="${calorieGoal}" required>
+  <h1>🎯 Nutrition Goals</h1>
 
-  <label>Protein Goal:</label>
-  <input type="number" step="0.1" name="proteinGoal" th:value="${proteinGoal}" required>
+  <p class="message" th:if="${msg}" th:text="${msg}"></p>
 
-  <label>Sugar Goal:</label>
-  <input type="number" step="0.1" name="sugarGoal" th:value="${sugarGoal}" required>
+  <div class="card">
+    <form th:action="@{/goals}" method="post">
 
-  <button type="submit">Save Goals</button>
-</form>
+      <div class="input-group">
+        <label>Goal Type</label>
+        <select name="goalType">
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </div>
 
-<a th:href="@{/dashboard}">Back to Dashboard</a>
+      <div class="input-group">
+        <label>Calories</label>
+        <input type="number" step="0.1" name="calorieGoal" th:value="${calorieGoal}" required>
+      </div>
+
+      <div class="input-group">
+        <label>Protein (g)</label>
+        <input type="number" step="0.1" name="proteinGoal" th:value="${proteinGoal}" required>
+      </div>
+
+      <div class="input-group">
+        <label>Sugar (g)</label>
+        <input type="number" step="0.1" name="sugarGoal" th:value="${sugarGoal}" required>
+      </div>
+
+      <div class="input-group">
+        <label>Carbs (g)</label>
+        <input type="number" step="0.1" name="carbGoal">
+      </div>
+
+      <button type="submit" class="btn">Save Goals</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Current Goals</h3>
+    <p>Calories Goal: <span th:text="${calorieGoal}"></span></p>
+    <p>Protein Goal: <span th:text="${proteinGoal}"></span></p>
+    <p>Sugar Goal: <span th:text="${sugarGoal}"></span></p>
+  </div>
+
+  <div class="card">
+    <h3>Weekly Goals (Coming Soon)</h3>
+    <p>Track your weekly nutrient intake and compare against goals.</p>
+  </div>
+
+  <a class="back-link" th:href="@{/dashboard}">← Back to Dashboard</a>
+</div>
+
 </body>
 </html>
