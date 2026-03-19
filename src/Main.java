@@ -18,7 +18,9 @@ public class Main {
             System.out.println("1. Add Daily Goal");
             System.out.println("2. Add Food");
             System.out.println("3. Get Daily Log");
-            System.out.println("4. Exit");
+            System.out.println("4. Get Weekly Log");
+            System.out.println("5. Delete Logs");
+            System.out.println("6. Exit");
             System.out.println("Enter your choice by number");
 
             System.out.println("");
@@ -68,6 +70,35 @@ public class Main {
                     break;
 
                 case 4:
+
+                    break;
+
+                case 5:
+
+                    System.out.println("Daily, All, or cancel");
+
+                    String input = scanner.nextLine();
+
+                    if (input.equals("Daily")) {
+                        service.deleteDaily();
+
+                        System.out.println("Done");
+                    }
+
+                    else if (input.equals("All")) {
+
+                        service.deleteWeekly();
+
+                        System.out.println("Done");
+
+                    }
+                    else if (input.equals("Cancel")) {
+                        break;
+                    }
+
+                    break;
+
+                case 6:
                     return;
 
                 default:

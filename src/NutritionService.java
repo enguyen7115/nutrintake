@@ -60,4 +60,35 @@ public class NutritionService {
         }
 
     }
+
+    public void deleteDaily() {
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "DELETE FROM foods";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteWeekly() {
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "DELETE FROM weekly_log";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
