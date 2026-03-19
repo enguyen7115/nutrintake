@@ -44,6 +44,16 @@ public class DatabaseManager {
             """);
 
             stmt.execute("""
+                create table IF NOT EXISTS weekly_logs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    calories INTEGER,
+                    protein INTEGER,
+                    sugar INTEGER
+                );
+            """);
+
+
+            stmt.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,

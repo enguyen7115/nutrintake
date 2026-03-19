@@ -1,3 +1,5 @@
+/*
+
 public class DailyGoal {
 
     private int caloriesGoal = 0;
@@ -28,3 +30,5 @@ public class DailyGoal {
         return "Calorie Goal: " + getCaloriesGoal() + " Protein: " + getProteinGoal() + " Sugar: " + getSugarGoal();
     }
 }
+
+ */

@@ -1,3 +1,5 @@
+/*
+
 public class Food {
     private String name = "";
     private int calories = 0;
@@ -35,3 +37,5 @@ public class Food {
         return "Name: " + name + " | Calories: " + calories + " | Protein: " + proteins + " | Sugars:" + sugars;
     }
 }
+
+ */

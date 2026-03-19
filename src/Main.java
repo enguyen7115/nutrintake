@@ -65,8 +65,6 @@ public class Main {
 
 
 
-                    //log.printLog();
-
                     break;
 
                 case 4:

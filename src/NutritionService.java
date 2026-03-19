@@ -39,4 +39,25 @@ public class NutritionService {
             System.out.println("Exception in addDailyGoal");
         }
     }
+
+    public void addWeekly(int totalCalories, int totalProtein, int totalSugar) {
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "INSERT INTO weekly_log(calories, protein, sugar) VALUES (?, ?, ?)";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, totalCalories);
+            stmt.setInt(2, totalProtein);
+            stmt.setInt(3, totalSugar);
+
+            stmt.executeUpdate();
+
+        }
+
+        catch (Exception e) {
+            System.out.println("Exception in addWeekly");
+        }
+
+    }
 }

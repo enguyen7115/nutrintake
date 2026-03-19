@@ -1,3 +1,5 @@
+/*
+
 import java.util.ArrayList;
 
 public class DailyLog{
@@ -120,3 +122,5 @@ public class DailyLog{
         System.out.println("");
     }
 }
+
+ */
