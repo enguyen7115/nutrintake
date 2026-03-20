@@ -68,7 +68,7 @@ public class Main {
 
                 case 3:
 
-                    dailyLog.checkCalories();
+                    dailyLog.printLog();
 
                     break;
 
