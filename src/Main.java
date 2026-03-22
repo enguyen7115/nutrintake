@@ -34,11 +34,11 @@ public class Main {
                 case 1:
 
                     System.out.println("Enter Daily Calorie Goal");
-                    int caloriesGoal = Integer.valueOf(scanner.nextLine());
+                    double caloriesGoal = Double.valueOf(scanner.nextLine());
                     System.out.println("Enter Daily Protein Goal");
-                    int proteinGoal = Integer.valueOf(scanner.nextLine());
+                    double proteinGoal = Double.valueOf(scanner.nextLine());
                     System.out.println("Enter Daily Sugar Goal");
-                    int sugarGoal = Integer.valueOf(scanner.nextLine());
+                    double sugarGoal = Double.valueOf(scanner.nextLine());
 
                     System.out.println("");
 
@@ -54,11 +54,11 @@ public class Main {
                     System.out.println("Enter Food Name: ");
                     String name = scanner.nextLine();
                     System.out.println("Enter Calorie Amount: ");
-                    int calories = Integer.valueOf(scanner.nextLine());
+                    double calories = Double.valueOf(scanner.nextLine());
                     System.out.println("Enter Protein Amount: ");
-                    int protein = Integer.valueOf(scanner.nextLine());
+                    double protein = Double.valueOf(scanner.nextLine());
                     System.out.println("Enter Sugar Amount: ");
-                    int sugar = Integer.valueOf(scanner.nextLine());
+                    double sugar = Double.valueOf(scanner.nextLine());
 
                     service.addFood(name, calories, protein, sugar);
 

@@ -38,8 +38,8 @@ public class DatabaseManager {
                 CREATE TABLE IF NOT EXISTS daily_goals (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     calories INTEGER,
-                    protein INTEGER,
-                    sugar INTEGER
+                    proteins INTEGER,
+                    sugars INTEGER
                 );
             """);
 

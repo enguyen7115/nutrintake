@@ -3,7 +3,7 @@ import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
 public class NutritionService {
-    public void addFood(String name, int calories, int protein, int sugar) {
+    public void addFood(String name, double calories, double protein, double sugar) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
@@ -11,9 +11,9 @@ public class NutritionService {
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
-            stmt.setInt(2, calories);
-            stmt.setInt(3, protein);
-            stmt.setInt(4, sugar);
+            stmt.setDouble(2, calories);
+            stmt.setDouble(3, protein);
+            stmt.setDouble(4, sugar);
 
             stmt.executeUpdate();
 
@@ -27,16 +27,16 @@ public class NutritionService {
         }
     }
 
-    public void addDailyGoal(int caloriesGoal, int proteinGoal, int sugarGoal) {
+    public void addDailyGoal(double caloriesGoal, double proteinGoal, double sugarGoal) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "INSERT INTO daily_goals(calories, protein, sugar) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO daily_goals(calories, proteins, sugars) VALUES (?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, caloriesGoal);
-            stmt.setInt(2, proteinGoal);
-            stmt.setInt(3, sugarGoal);
+            stmt.setDouble(1, caloriesGoal);
+            stmt.setDouble(2, proteinGoal);
+            stmt.setDouble(3, sugarGoal);
 
             stmt.executeUpdate();
         }
@@ -46,16 +46,16 @@ public class NutritionService {
         }
     }
 
-    public void addWeekly(int totalCalories, int totalProtein, int totalSugar) {
+    public void addWeekly(double totalCalories, double totalProtein, double totalSugar) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
             String sql = "INSERT INTO weekly_logs(calories, protein, sugar) VALUES (?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, totalCalories);
-            stmt.setInt(2, totalProtein);
-            stmt.setInt(3, totalSugar);
+            stmt.setDouble(1, totalCalories);
+            stmt.setDouble(2, totalProtein);
+            stmt.setDouble(3, totalSugar);
 
             stmt.executeUpdate();
 
