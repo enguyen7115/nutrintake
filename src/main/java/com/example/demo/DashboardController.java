@@ -41,8 +41,6 @@ public class DashboardController {
         model.addAttribute("logs", getLogs());
         model.addAttribute("viewDate", java.time.LocalDate.now().toString());
 
-<<<<<<< Updated upstream
-=======
         double calorieGoal = 2000;
         double proteinGoal = 150;
         double sugarGoal = 50;
@@ -68,7 +66,6 @@ public class DashboardController {
         model.addAttribute("proteinGoal", proteinGoal);
         model.addAttribute("sugarGoal", sugarGoal);
 
->>>>>>> Stashed changes
         return "dashboard";
     }
 
