@@ -3,6 +3,7 @@ package com.example.demo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -124,6 +125,19 @@ public class DashboardController {
         ra.addFlashAttribute("msg", "Goals saved successfully");
 
         return "redirect:/goals";
+    }
+
+    @DeleteMapping("/goals")
+    public String deleteGoals(@RequestParam String type, RedirectAttributes ra) {
+        if (type.equals("daily")) {
+            service.deleteDaily();
+            ra.addFlashAttribute("msg", "Daily goals deleted successfully");
+        } else if (type.equals("weekly")) {
+            service.deleteWeekly();
+            ra.addFlashAttribute("msg", "Weekly goals deleted successfully");
+        }
+
+        return "redirect:/dashboard";
     }
 
     //Handles food logging form submission.

@@ -106,7 +106,6 @@ public class NutritionService {
 
     }
 
-    //TODO: Delete daily log through frontend call to database
     public void deleteDaily() {
 
         try (Connection conn = DatabaseManager.connect()) {
@@ -122,7 +121,6 @@ public class NutritionService {
         }
     }
 
-    //TODO: Delete entries from weekly log through frontend call
     public void deleteWeekly() {
 
         try (Connection conn = DatabaseManager.connect()) {

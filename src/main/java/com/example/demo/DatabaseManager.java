@@ -1,10 +1,11 @@
 package com.example.demo;
 
+import java.lang.invoke.TypeDescriptor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-//Creates and initalizes database information
+//Creates and initializes database information
 public class DatabaseManager {
     private static final String URL = "jdbc:sqlite:nutrition.db";
 
