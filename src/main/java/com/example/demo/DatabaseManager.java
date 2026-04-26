@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import java.lang.invoke.TypeDescriptor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
