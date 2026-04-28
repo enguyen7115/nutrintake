@@ -66,7 +66,11 @@ public class DashboardController {
     }
 
     @GetMapping("/goals")
-    public String goals(Model model) {
+    public String goals(Model model, HttpSession session) {
+        if (session.getAttribute("userEmail") == null) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("calorieGoal", 2000);
         model.addAttribute("proteinGoal", 150);
         model.addAttribute("sugarGoal", 50);
@@ -91,7 +95,10 @@ public class DashboardController {
 
     //Displays the foods management page.
     @GetMapping("/foods")
-    public String foods(Model model) {
+    public String foods(Model model, HttpSession session) {
+        if (session.getAttribute("userEmail") == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("foods", foods);
         return "foods";
     }
