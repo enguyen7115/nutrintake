@@ -17,6 +17,37 @@ public class DailyLog {
 
         return getValue(sql);
     }
+    
+    public double getCaloriesForDay(LocalDate date) {
+        return getCaloriesForRange(date, date);
+    }
+
+    public double getCaloriesForRange(LocalDate start, LocalDate end) {
+        String sql = """
+                     SELECT SUM(f.calories * l.servings)
+                     FROM food_logs l
+                     JOIN foods f ON l.food_id = f.id
+                     WHERE l.date BETWEEN ? AND ?
+                     """;
+
+        try (Connection conn = DatabaseManager.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, start.toString());
+            stmt.setString(2, end.toString());
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 
     public double getProteins() {
 
@@ -29,6 +60,37 @@ public class DailyLog {
         return getValue(sql);
     }
 
+    public double getProteinsForDay(LocalDate date) {
+        return getProteinsForRange(date, date);
+    }
+
+    public double getProteinsForRange(LocalDate start, LocalDate end) {
+        String sql = """
+        SELECT SUM(f.protein * l.servings)
+        FROM food_logs l
+        JOIN foods f ON l.food_id = f.id
+        WHERE l.date BETWEEN ? AND ?
+    """;
+
+        try (Connection conn = DatabaseManager.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, start.toString());
+            stmt.setString(2, end.toString());
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
     public double getSugars() {
 
         String sql = """
@@ -38,6 +100,37 @@ public class DailyLog {
                 """;
 
         return getValue(sql);
+    }
+
+    public double getSugarsForDay(LocalDate date) {
+        return getSugarsForRange(date, date);
+    }
+
+    public double getSugarsForRange(LocalDate start, LocalDate end) {
+        String sql = """
+        SELECT SUM(f.sugar * l.servings)
+        FROM food_logs l
+        JOIN foods f ON l.food_id = f.id
+        WHERE l.date BETWEEN ? AND ?
+    """;
+
+        try (Connection conn = DatabaseManager.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, start.toString());
+            stmt.setString(2, end.toString());
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
     private double getValue(String sql) {
