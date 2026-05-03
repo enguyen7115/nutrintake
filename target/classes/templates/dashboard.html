@@ -38,9 +38,34 @@
             </div>
         </div>
     </section>
+    
     <div class="card goals-summary">
         <h3>Goals Progress</h3>
+<!-- Weekly total section-->
+    </section>
+    <section class="card totals">
+        <h2>
+            This Week's Totals —
+            <span th:text="${weekStart}"></span>
+            to
+            <span th:text="${weekEnd}"></span>
+        </h2>
 
+        <div class="totals-grid">
+            <div class="stat">
+                <div class="label">Calories</div>
+                <div class="value" th:text="${weeklyCalories}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Protein (g)</div>
+                <div class="value" th:text="${weeklyProtein}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sugar (g)</div>
+                <div class="value" th:text="${weeklySugar}">0</div>
+            </div>
+        </div>
+    </section>
         <div class="chart-row">
             <div class="chart-box">
                 <h4>Calories</h4>
