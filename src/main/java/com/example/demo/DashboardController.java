@@ -32,18 +32,32 @@ public class DashboardController {
         }
 
         //Calculate daily totals, add to model
-        model.addAttribute("calories", dailyLog.getCalories());
-        model.addAttribute("protein", dailyLog.getProteins());
-        model.addAttribute("sugar", dailyLog.getSugars());
+       LocalDate today = LocalDate.now();
+
+        model.addAttribute("calories", dailyLog.getCaloriesForDay(today));
+        model.addAttribute("protein", dailyLog.getProteinsForDay(today));
+        model.addAttribute("sugar", dailyLog.getSugarsForDay(today));
+
+        // calculate weekly totals
+        LocalDate startOfWeek = today.minusDays(today.getDayOfWeek().getValue() - 1);
+        LocalDate endOfWeek = startOfWeek.plusDays(6);
+
+        model.addAttribute("weekStart", startOfWeek);
+        model.addAttribute("weekEnd", endOfWeek);
+
+        model.addAttribute("weeklyCalories", dailyLog.getCaloriesForRange(startOfWeek, endOfWeek));
+        model.addAttribute("weeklyProtein", dailyLog.getProteinsForRange(startOfWeek, endOfWeek));
+        model.addAttribute("weeklySugar", dailyLog.getSugarsForRange(startOfWeek, endOfWeek));
+
 
         //Send food, log data, and the current date to Thymeleaf template
         model.addAttribute("foods", getFoods());
         model.addAttribute("logs", getLogs());
         model.addAttribute("viewDate", java.time.LocalDate.now().toString());
 
-        model.addAttribute("calorieGoal", calorieGoal);
-        model.addAttribute("proteinGoal", proteinGoal);
-        model.addAttribute("sugarGoal", sugarGoal);
+        model.addAttribute("calorieGoal", 2000);
+        model.addAttribute("proteinGoal", 150);
+        model.addAttribute("sugarGoal", 50);
 
         return "dashboard";
     }
