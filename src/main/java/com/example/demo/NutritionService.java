@@ -8,17 +8,23 @@ import java.time.LocalDate;
 public class NutritionService {
     //Allows user to create a food item with a name and certain nutritional information and
     //add to food database
-    public void addFood(String name, double calories, double protein, double sugar) {
+    public void addFood(String name, double calories, double protein, double sugar, double carbs,
+                        double fats, double sodium, double cholesterol) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "INSERT INTO foods(name, calories, protein, sugar) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO foods(name, calories, protein, sugar, carbs, fats, sodium, cholesterol) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setDouble(2, calories);
             stmt.setDouble(3, protein);
             stmt.setDouble(4, sugar);
+            stmt.setDouble(5, carbs);
+            stmt.setDouble(6, fats);
+            stmt.setDouble(7, sodium);
+            stmt.setDouble(8, cholesterol);
 
             stmt.executeUpdate();
 
@@ -63,16 +69,22 @@ public class NutritionService {
     }
 
     //Allows user to submit goal for each day
-    public void addDailyGoal(double caloriesGoal, double proteinGoal, double sugarGoal) {
+    public void addDailyGoal(double caloriesGoal, double proteinGoal, double sugarGoal, double carbsGoal,
+                             double fatsGoal, double sodiumGoal, double cholesterolGoal) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "INSERT INTO daily_goals(calories, proteins, sugars) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO daily_goals(calories, proteins, sugars, carbs, fats, sodium, cholesterol) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setDouble(1, caloriesGoal);
             stmt.setDouble(2, proteinGoal);
             stmt.setDouble(3, sugarGoal);
+            stmt.setDouble(4, carbsGoal);
+            stmt.setDouble(5, fatsGoal);
+            stmt.setDouble(6, sodiumGoal);
+            stmt.setDouble(7, cholesterolGoal);
 
             stmt.executeUpdate();
         }
