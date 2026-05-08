@@ -73,12 +73,12 @@ public class NutritionService {
 
     //Allows user to submit goal for each day
     public void addDailyGoal(double caloriesGoal, double fatsGoal, double cholesterolGoal, double sodiumGoal,
-                             double carbsGoal, double sugarsGoal, double proteinGoal) {
+                             double carbsGoal, double proteinGoal) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "INSERT INTO daily_goals(calories, fats, cholesterol, sodium, carbs, sugars, proteins) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO daily_goals(calories, fats, cholesterol, sodium, carbs, proteins) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setDouble(1, caloriesGoal);
@@ -86,8 +86,7 @@ public class NutritionService {
             stmt.setDouble(3, cholesterolGoal);
             stmt.setDouble(4, sodiumGoal);
             stmt.setDouble(5, carbsGoal);
-            stmt.setDouble(6, sugarsGoal);
-            stmt.setDouble(7, proteinGoal);
+            stmt.setDouble(6, proteinGoal);
 
             stmt.executeUpdate();
         }

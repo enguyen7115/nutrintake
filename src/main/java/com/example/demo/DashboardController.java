@@ -53,7 +53,6 @@ public class DashboardController {
         model.addAttribute("cholesterolGoal", model.getAttribute("cholesterolGoal"));
         model.addAttribute("sodiumGoal", model.getAttribute("sodiumGoal"));
         model.addAttribute("carbsGoal",model.getAttribute("carbsGoal"));
-        model.addAttribute("sugarGoal", model.getAttribute("sugarGoal"));
         model.addAttribute("proteinGoal", model.getAttribute("proteinGoal"));
 
         return "dashboard";
@@ -110,7 +109,6 @@ public class DashboardController {
         model.addAttribute("cholesterolGoal (mg)", 0);
         model.addAttribute("sodiumGoal (mg)", 0);
         model.addAttribute("carbsGoal (g)", 0);
-        model.addAttribute("sugarGoal (g)", 0);
         model.addAttribute("proteinGoal (g)", 0);
 
         return "goals";
@@ -127,7 +125,7 @@ public class DashboardController {
             @RequestParam double cholesterolGoal,
             RedirectAttributes ra) {
 
-        service.addDailyGoal(calorieGoal, fatsGoal, cholesterolGoal, sodiumGoal, carbsGoal, sugarGoal, proteinGoal);
+        service.addDailyGoal(calorieGoal, fatsGoal, cholesterolGoal, sodiumGoal, carbsGoal, proteinGoal);
 
         ra.addFlashAttribute("msg", "Goals saved successfully");
 
