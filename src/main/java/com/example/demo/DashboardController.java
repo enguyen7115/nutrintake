@@ -12,8 +12,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.DayOfWeek;
 
 //dashboard controller
 //handles: dashboard rendering, food creation, food logging, and daily total calculation.
@@ -22,6 +24,7 @@ public class DashboardController {
 
     NutritionService service = new NutritionService();
     DailyLog dailyLog = new DailyLog();
+    WeeklyLog weeklyLog = new WeeklyLog();
 
     //displays the dashboard
     @GetMapping("/dashboard")
@@ -42,9 +45,20 @@ public class DashboardController {
         model.addAttribute("logs", getLogs());
         model.addAttribute("viewDate", java.time.LocalDate.now().toString());
 
-        double calorieGoal = 2000;
-        double proteinGoal = 150;
-        double sugarGoal = 50;
+        // Send week start and end dates to template
+        model.addAttribute("weekStart", java.time.LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)));
+        model.addAttribute("weekEnd", java.time.LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)));
+
+        // Send weekly totals and add to model
+        model.addAttribute("weeklyCalories", weeklyLog.getCalories());
+        model.addAttribute("weeklyProtein", weeklyLog.getProteins());
+        model.addAttribute("weeklySugar", weeklyLog.getSugars());
+
+        System.out.printf("Weekly Total: %f, %f, %f\n", weeklyLog.getCalories(), weeklyLog.getProteins(), weeklyLog.getSugars());
+
+        double dailyCalorieGoal = 0.0;
+        double dailyProteinGoal = 0.0;
+        double dailySugarGoal = 0.0;
 
         try (Connection conn = DatabaseManager.connect()) {
 
@@ -54,18 +68,45 @@ public class DashboardController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                calorieGoal = rs.getDouble("calories");
-                proteinGoal = rs.getDouble("proteins");
-                sugarGoal = rs.getDouble("sugars");
+                dailyCalorieGoal = rs.getDouble("calories");
+                dailyProteinGoal = rs.getDouble("proteins");
+                dailySugarGoal = rs.getDouble("sugars");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        model.addAttribute("calorieGoal", calorieGoal);
-        model.addAttribute("proteinGoal", proteinGoal);
-        model.addAttribute("sugarGoal", sugarGoal);
+        model.addAttribute("calorieGoal", dailyCalorieGoal);
+        model.addAttribute("proteinGoal", dailyProteinGoal);
+        model.addAttribute("sugarGoal", dailySugarGoal);
+
+        double weeklyCalorieGoal = 0.0;
+        double weeklyProteinGoal = 0.0;
+        double weeklySugarGoal = 0.0;
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "SELECT calories, proteins, sugars FROM weekly_goals ORDER BY id DESC LIMIT 1";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                weeklyCalorieGoal = rs.getDouble("calories");
+                weeklyProteinGoal = rs.getDouble("proteins");
+                weeklySugarGoal = rs.getDouble("sugars");
+
+                System.out.printf("Weekly Goal: %f, %f, %f\n", weeklyCalorieGoal, weeklyProteinGoal, weeklySugarGoal);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("weeklyCaloriesGoal", weeklyCalorieGoal);
+        model.addAttribute("weeklyProteinGoal", weeklyProteinGoal);
+        model.addAttribute("weeklySugarGoal", weeklySugarGoal);
 
         return "dashboard";
     }
@@ -114,13 +155,17 @@ public class DashboardController {
     }
 
     @PostMapping("/goals")
-    public String updateGoals(
+    public String updateGoals(@RequestParam String goalType,
             @RequestParam double calorieGoal,
             @RequestParam double proteinGoal,
             @RequestParam double sugarGoal,
             RedirectAttributes ra) {
 
-        service.addDailyGoal(calorieGoal, proteinGoal, sugarGoal);
+        if (goalType.equals("daily")) {
+            service.addDailyGoal(calorieGoal, proteinGoal, sugarGoal);
+        } else if (goalType.equals("weekly")) {
+            service.addWeeklyGoal(calorieGoal, proteinGoal, sugarGoal);
+        }
 
         ra.addFlashAttribute("msg", "Goals saved successfully");
 

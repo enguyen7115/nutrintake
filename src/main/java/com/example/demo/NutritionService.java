@@ -62,7 +62,7 @@ public class NutritionService {
         }
     }
 
-    //Allows user to submit goal for each day
+    // Allows user to submit goal for each day
     public void addDailyGoal(double caloriesGoal, double proteinGoal, double sugarGoal) {
 
         try (Connection conn = DatabaseManager.connect()) {
@@ -82,7 +82,26 @@ public class NutritionService {
         }
     }
 
-    //Adds current daily log to weekly log database
+    public void addWeeklyGoal(double caloriesGoal, double proteinGoal, double sugarGoal) {
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "INSERT INTO weekly_goals(calories, proteins, sugars) VALUES (?, ?, ?)";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1, caloriesGoal);
+            stmt.setDouble(2, proteinGoal);
+            stmt.setDouble(3, sugarGoal);
+
+            stmt.executeUpdate();
+        }
+
+        catch (Exception e) {
+            System.out.println("Exception in addWeeklyGoal: " + e);
+        }
+    }
+
+    // Adds current daily log to weekly log database
     //TODO: Add daily log to weekly log database through frontend call
     public void addWeekly(double totalCalories, double totalProtein, double totalSugar) {
 
@@ -97,7 +116,6 @@ public class NutritionService {
             stmt.setDouble(4, totalSugar);
 
             stmt.executeUpdate();
-
         }
 
         catch (Exception e) {
@@ -138,7 +156,7 @@ public class NutritionService {
     }
 
     //TODO: Create call to weekly log database and save information
-    public void saveToWeekly(){
+    public void saveToWeekly() {
         DailyLog dailyLog = new DailyLog();
 
         double calories = dailyLog.getCalories();
@@ -146,7 +164,6 @@ public class NutritionService {
         double sugar = dailyLog.getSugars();
 
         addWeekly(calories, protein, sugar);
-
     }
 
 

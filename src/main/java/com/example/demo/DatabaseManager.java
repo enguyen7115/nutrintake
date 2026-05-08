@@ -47,6 +47,15 @@ public class DatabaseManager {
             """);
 
             stmt.execute("""
+                CREATE TABLE IF NOT EXISTS weekly_goals (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    calories INTEGER,
+                    proteins INTEGER,
+                    sugars INTEGER
+                );
+            """);
+
+            stmt.execute("""
                 create table IF NOT EXISTS weekly_logs (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     logDate TEXT,
