@@ -8,23 +8,26 @@ import java.time.LocalDate;
 public class NutritionService {
     //Allows user to create a food item with a name and certain nutritional information and
     //add to food database
-    public void addFood(String name, double calories, double protein, double sugar, double carbs,
-                        double fats, double sodium, double cholesterol) {
+    public void addFood(String name, double calories, double fats, double saturated_fat, double trans_fat,
+                        double cholesterol, double sodium, double carbs, double fiber, double sugars, double protein) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "INSERT INTO foods(name, calories, protein, sugar, carbs, fats, sodium, cholesterol) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO foods(name, calories, fats, saturated_fat, trans_fat, cholesterol, sodium, " +
+                    "carbs, fiber, sugars, protein) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setDouble(2, calories);
-            stmt.setDouble(3, protein);
-            stmt.setDouble(4, sugar);
-            stmt.setDouble(5, carbs);
-            stmt.setDouble(6, fats);
+            stmt.setDouble(3, fats);
+            stmt.setDouble(4, saturated_fat);
+            stmt.setDouble(5, trans_fat);
+            stmt.setDouble(6, cholesterol);
             stmt.setDouble(7, sodium);
-            stmt.setDouble(8, cholesterol);
+            stmt.setDouble(8, carbs);
+            stmt.setDouble(9, fiber);
+            stmt.setDouble(10, sugars);
+            stmt.setDouble(11, protein);
 
             stmt.executeUpdate();
 
@@ -69,22 +72,22 @@ public class NutritionService {
     }
 
     //Allows user to submit goal for each day
-    public void addDailyGoal(double caloriesGoal, double proteinGoal, double sugarGoal, double carbsGoal,
-                             double fatsGoal, double sodiumGoal, double cholesterolGoal) {
+    public void addDailyGoal(double caloriesGoal, double fatsGoal, double cholesterolGoal, double sodiumGoal,
+                             double carbsGoal, double sugarsGoal, double proteinGoal) {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "INSERT INTO daily_goals(calories, proteins, sugars, carbs, fats, sodium, cholesterol) " +
+            String sql = "INSERT INTO daily_goals(calories, fats, cholesterol, sodium, carbs, sugars, proteins) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setDouble(1, caloriesGoal);
-            stmt.setDouble(2, proteinGoal);
-            stmt.setDouble(3, sugarGoal);
-            stmt.setDouble(4, carbsGoal);
-            stmt.setDouble(5, fatsGoal);
-            stmt.setDouble(6, sodiumGoal);
-            stmt.setDouble(7, cholesterolGoal);
+            stmt.setDouble(2, fatsGoal);
+            stmt.setDouble(3, cholesterolGoal);
+            stmt.setDouble(4, sodiumGoal);
+            stmt.setDouble(5, carbsGoal);
+            stmt.setDouble(6, sugarsGoal);
+            stmt.setDouble(7, proteinGoal);
 
             stmt.executeUpdate();
         }

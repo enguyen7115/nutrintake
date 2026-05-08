@@ -31,6 +31,50 @@ public class DailyLog {
         return getValue(sql);
     }
 
+    public double getCarbs() {
+
+        String sql = """
+                SELECT SUM(f.carbs * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getFiber() {
+
+        String sql = """
+                SELECT SUM(f.fiber * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getSaturated_fat() {
+
+        String sql = """
+                SELECT SUM(f.saturated_fat * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getTrans_fat() {
+
+        String sql = """
+                SELECT SUM(f.trans_fat * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
     public double getSugars() {
 
         String sql = """
@@ -42,16 +86,6 @@ public class DailyLog {
         return getValue(sql);
     }
 
-    public double getCarbs() {
-
-        String sql = """
-                SELECT SUM(f.carbs * l.servings)
-                FROM food_logs l
-                JOIN foods f ON l.food_id = f.id
-                """;
-
-        return getValue(sql);
-    }
 
     public double getFats() {
 
