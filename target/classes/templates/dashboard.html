@@ -36,6 +36,34 @@
                 <div class="label">Sugar (g)</div>
                 <div class="value" th:text="${sugar}">0</div>
             </div>
+            <div class="stat">
+                <div class="label">Fats (g)</div>
+                <div class="value" th:text="${fats}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Cholesterol (mg)</div>
+                <div class="value" th:text="${cholesterol}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sodium (mg)</div>
+                <div class="value" th:text="${sodium}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Carbs (g)</div>
+                <div class="value" th:text="${carbs}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fiber (g)</div>
+                <div class="value" th:text="${fiber}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Saturated Fats (g)</div>
+                <div class="value" th:text="${saturated_fat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Trans Fats (g)</div>
+                <div class="value" th:text="${trans_fat}">0</div>
+            </div>
         </div>
     </section>
     <section class="card totals">
@@ -88,11 +116,38 @@
             </div>
 
             <div class="chart-box">
-                <h4>Sugar</h4>
-                <canvas id="sugarChart"></canvas>
+                <h4>Carbs</h4>
+                <canvas id="carbsChart"></canvas>
                 <p>
-                    <span th:text="${sugar}"></span> /
-                    <span th:text="${sugarGoal}"></span>
+                    <span th:text="${carbs}"></span> /
+                    <span th:text="${carbsGoal}"></span>
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Fats</h4>
+                <canvas id="fatsChart"></canvas>
+                <p>
+                    <span th:text="${fats}"></span> /
+                    <span th:text="${fatsGoal}"></span>
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Cholesterol</h4>
+                <canvas id="cholesterolChart"></canvas>
+                <p>
+                    <span th:text="${cholesterol}"></span> /
+                    <span th:text="${cholesterolGoal}"></span>
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Sodium</h4>
+                <canvas id="sodiumChart"></canvas>
+                <p>
+                    <span th:text="${sodium}"></span> /
+                    <span th:text="${sodiumGoal}"></span>
                 </p>
             </div>
         </div>
@@ -152,8 +207,15 @@
     const calorieGoal = [[${calorieGoal}]];
     const protein = [[${protein}]];
     const proteinGoal = [[${proteinGoal}]];
-    const sugar = [[${sugar}]];
-    const sugarGoal = [[${sugarGoal}]];
+    const carbs = [[${carbs}]];
+    const carbsGoal = [[${carbsGoal}]];
+    const fats = [[${fats}]];
+    const fatsGoal = [[${fatsGoal}]];
+    const cholesterol = [[${cholesterol}]];
+    const cholesterolGoal = [[${cholesterolGoal}]];
+    const sodium = [[${sodium}]];
+    const sodiumGoal = [[${sodiumGoal}]];
+
 
     function makeDonutChart(canvasId, value, goal) {
         let data;
@@ -191,7 +253,10 @@
 
     makeDonutChart('calorieChart', calories, calorieGoal);
     makeDonutChart('proteinChart', protein, proteinGoal);
-    makeDonutChart('sugarChart', sugar, sugarGoal);
+    makeDonutChart('carbsChart', carbs, carbsGoal);
+    makeDonutChart('fatsChart', fats, fatsGoal);
+    makeDonutChart('cholesterolChart', cholesterol, cholesterolGoal);
+    makeDonutChart('sodiumChart', sodium, sodiumGoal);
 </script>
 </body>
 </html>

@@ -35,13 +35,23 @@
       </div>
 
       <div class="input-group">
-        <label>Sugar (g)</label>
-        <input type="number" step="0.1" min="0" name="sugarGoal" th:value="${sugarGoal}" required>
+        <label>Fats (g)</label>
+        <input type="number" step="0.1" min="0" name="fatsGoal" th:value="${fatsGoal}" required>
       </div>
 
       <div class="input-group">
         <label>Carbs (g)</label>
-        <input type="number" step="0.1" min="0" name="carbGoal">
+        <input type="number" step="0.1" min="0" name="carbsGoal" th:value="${carbsGoal}" required>
+      </div>
+
+      <div class="input-group">
+        <label>Cholesterol (mg)</label>
+        <input type="number" step="0.1" min="0" name="cholesterolGoal" th:value="${cholesterolGoal}" required>
+      </div>
+
+      <div class="input-group">
+        <label>Sodium (mg)</label>
+        <input type="number" step="0.1" min="0" name="sodiumGoal" th:value="${sodiumGoal}" required>
       </div>
 
       <button type="submit" class="btn">Save Goals</button>
@@ -52,7 +62,7 @@
     <h3>Current Goals</h3>
     <p>Calories Goal: <span th:text="${calorieGoal}"></span></p>
     <p>Protein Goal: <span th:text="${proteinGoal}"></span></p>
-    <p>Sugar Goal: <span th:text="${sugarGoal}"></span></p>
+    <p>Carbs Goal: <span th:text="${carbsGoal}"></span></p>
   </div>
 
   <div class="card">

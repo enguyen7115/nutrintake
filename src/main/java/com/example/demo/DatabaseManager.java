@@ -24,7 +24,14 @@ public class DatabaseManager {
                     name TEXT,
                     calories INTEGER,
                     protein INTEGER,
-                    sugar INTEGER
+                    sugar INTEGER,
+                    fats INTEGER,
+                    saturated_fat INTEGER,
+                    trans_fat INTEGER,
+                    cholesterol INTEGER,
+                    sodium INTEGER,
+                    fiber INTEGER,
+                    carbs INTEGER
                 );
             """);
 
@@ -42,7 +49,10 @@ public class DatabaseManager {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     calories INTEGER,
                     proteins INTEGER,
-                    sugars INTEGER
+                    fats INTEGER,
+                    cholesterol INTEGER,
+                    sodium INTEGER,
+                    carbs INTEGER
                 );
             """);
 
@@ -51,7 +61,14 @@ public class DatabaseManager {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     calories INTEGER,
                     proteins INTEGER,
-                    sugars INTEGER
+                    sugar INTEGER,
+                    fats INTEGER,
+                    saturated_fat INTEGER,
+                    trans_fat INTEGER,
+                    cholesterol INTEGER,
+                    sodium INTEGER,
+                    fiber INTEGER,
+                    carbs INTEGER
                 );
             """);
 
@@ -61,7 +78,14 @@ public class DatabaseManager {
                     logDate TEXT,
                     calories INTEGER,
                     protein INTEGER,
-                    sugar INTEGER
+                    sugar INTEGER,
+                    fats INTEGER,
+                    saturated_fat INTEGER,
+                    trans_fat INTEGER,
+                    cholesterol INTEGER,
+                    sodium INTEGER,
+                    fiber INTEGER,
+                    carbs INTEGER
                 );
             """);
 

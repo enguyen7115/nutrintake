@@ -37,8 +37,15 @@ public class DashboardController {
 
         //Calculate daily totals, add to model
         model.addAttribute("calories", dailyLog.getCalories());
-        model.addAttribute("protein", dailyLog.getProteins());
+        model.addAttribute("fats", dailyLog.getFats());
+        model.addAttribute("saturated_fat", dailyLog.getSaturated_fat());
+        model.addAttribute("trans_fat", dailyLog.getTrans_fat());
+        model.addAttribute("cholesterol", dailyLog.getCholesterol());
+        model.addAttribute("sodium", dailyLog.getSodium());
+        model.addAttribute("carbs", dailyLog.getCarbs());
+        model.addAttribute("fiber", dailyLog.getFiber());
         model.addAttribute("sugar", dailyLog.getSugars());
+        model.addAttribute("protein", dailyLog.getProteins());
 
         //Send food, log data, and the current date to Thymeleaf template
         model.addAttribute("foods", getFoods());
@@ -58,11 +65,14 @@ public class DashboardController {
 
         double dailyCalorieGoal = 0.0;
         double dailyProteinGoal = 0.0;
-        double dailySugarGoal = 0.0;
+        double dailyCarbsGoal = 0.0;
+        double dailyCholesterolGoal = 0.0;
+        double dailyFatsGoal = 0.0;
+        double dailySodiumGoal = 0.0;
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "SELECT calories, proteins, sugars FROM daily_goals ORDER BY id DESC LIMIT 1";
+            String sql = "SELECT calories, fats, cholesterol, sodium, carbs, proteins FROM daily_goals ORDER BY id DESC LIMIT 1";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -70,7 +80,10 @@ public class DashboardController {
             if (rs.next()) {
                 dailyCalorieGoal = rs.getDouble("calories");
                 dailyProteinGoal = rs.getDouble("proteins");
-                dailySugarGoal = rs.getDouble("sugars");
+                dailyCarbsGoal = rs.getDouble("carbs");
+                dailyCholesterolGoal = rs.getDouble("cholesterol");
+                dailyFatsGoal = rs.getDouble("fats");
+                dailySodiumGoal = rs.getDouble("sodium");
             }
 
         } catch (Exception e) {
@@ -79,7 +92,10 @@ public class DashboardController {
 
         model.addAttribute("calorieGoal", dailyCalorieGoal);
         model.addAttribute("proteinGoal", dailyProteinGoal);
-        model.addAttribute("sugarGoal", dailySugarGoal);
+        model.addAttribute("carbsGoal", dailyCarbsGoal);
+        model.addAttribute("cholesterolGoal", dailyCholesterolGoal);
+        model.addAttribute("fatsGoal", dailyFatsGoal);
+        model.addAttribute("sodiumGoal", dailySodiumGoal);
 
         double weeklyCalorieGoal = 0.0;
         double weeklyProteinGoal = 0.0;
@@ -87,7 +103,7 @@ public class DashboardController {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "SELECT calories, proteins, sugars FROM weekly_goals ORDER BY id DESC LIMIT 1";
+            String sql = "SELECT calories, proteins, sugar FROM weekly_goals ORDER BY id DESC LIMIT 1";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -130,10 +146,18 @@ public class DashboardController {
             @RequestParam String name,
             @RequestParam double calories,
             @RequestParam double protein,
+            @RequestParam double carbs,
+            @RequestParam double fiber,
             @RequestParam double sugar,
+            @RequestParam double fats,
+            @RequestParam double saturated_fat,
+            @RequestParam double trans_fat,
+            @RequestParam double sodium,
+            @RequestParam double cholesterol,
             RedirectAttributes ra) {
 
-        service.addFood(name, calories, protein, sugar);
+        service.addFood(name, calories, fats, saturated_fat, trans_fat, cholesterol, sodium, carbs, fiber,
+                sugar, protein);
 
         ra.addFlashAttribute("msg", "Food added successfully");
 
@@ -147,9 +171,12 @@ public class DashboardController {
             return "redirect:/login";
         }
 
-        model.addAttribute("calorieGoal", 2000);
-        model.addAttribute("proteinGoal", 150);
-        model.addAttribute("sugarGoal", 50);
+        model.addAttribute("calorieGoal", 0);
+        model.addAttribute("fatsGoal", 0);
+        model.addAttribute("cholesterolGoal", 0);
+        model.addAttribute("sodiumGoal", 0);
+        model.addAttribute("carbsGoal", 0);
+        model.addAttribute("proteinGoal", 0);
 
         return "goals";
     }
@@ -158,13 +185,16 @@ public class DashboardController {
     public String updateGoals(@RequestParam String goalType,
             @RequestParam double calorieGoal,
             @RequestParam double proteinGoal,
-            @RequestParam double sugarGoal,
+            @RequestParam double fatsGoal,
+            @RequestParam double cholesterolGoal,
+            @RequestParam double carbsGoal,
+            @RequestParam double sodiumGoal,
             RedirectAttributes ra) {
 
         if (goalType.equals("daily")) {
-            service.addDailyGoal(calorieGoal, proteinGoal, sugarGoal);
+            service.addDailyGoal(calorieGoal, fatsGoal, cholesterolGoal, sodiumGoal, carbsGoal, proteinGoal);
         } else if (goalType.equals("weekly")) {
-            service.addWeeklyGoal(calorieGoal, proteinGoal, sugarGoal);
+            service.addWeeklyGoal(calorieGoal, fatsGoal, cholesterolGoal, sodiumGoal, carbsGoal, proteinGoal);
         }
 
         ra.addFlashAttribute("msg", "Goals saved successfully");
@@ -206,7 +236,8 @@ public class DashboardController {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "SELECT name, calories, protein, sugar FROM foods";
+            String sql = "SELECT name, calories, fats, saturated_fat, trans_fat, cholesterol, sodium, carbs, fiber, sugar, protein " +
+                    "FROM foods";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -218,8 +249,15 @@ public class DashboardController {
                         rs.getString("name"),
                         1,
                         rs.getDouble("calories"),
-                        rs.getDouble("protein"),
-                        rs.getDouble("sugar")
+                        rs.getDouble("fats"),
+                        rs.getDouble("saturated_fat"),
+                        rs.getDouble("trans_fat"),
+                        rs.getDouble("cholesterol"),
+                        rs.getDouble("sodium"),
+                        rs.getDouble("carbs"),
+                        rs.getDouble("fiber"),
+                        rs.getDouble("sugar"),
+                        rs.getDouble("protein")
                 ));
             }
 
@@ -232,7 +270,6 @@ public class DashboardController {
 
     //Returns the food log entries
     private List<FoodLog> getLogs() {
-
         List<FoodLog> logs = new ArrayList<>();
 
         try (Connection conn = DatabaseManager.connect()) {
@@ -240,31 +277,41 @@ public class DashboardController {
             String sql = """
                     SELECT f.name, l.servings,
                     f.calories * l.servings AS calories,
-                    f.protein * l.servings AS protein,
-                    f.sugar * l.servings AS sugar
+                    f.fats * l.servings AS fats,
+                    f.saturated_fat * l.servings AS saturated_fat,
+                    f.trans_fat * l.servings AS trans_fat,
+                    f.cholesterol * l.servings AS cholesterol,
+                    f.sodium * l.servings AS sodium,
+                    f.carbs * l.servings AS carbs,
+                    f.fiber * l.servings AS fiber,
+                    f.sugar * l.servings AS sugar,
+                    f.protein * l.servings AS protein
                     FROM food_logs l
                     JOIN foods f ON l.food_id = f.id
                     """;
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-
                 logs.add(new FoodLog(
                         rs.getString("name"),
-                        rs.getDouble("servings"),
+                        rs.getDouble("Servings"),
                         rs.getDouble("calories"),
-                        rs.getDouble("protein"),
-                        rs.getDouble("sugar")
+                        rs.getDouble("fats"),
+                        rs.getDouble("saturated_fat"),
+                        rs.getDouble("trans_fat"),
+                        rs.getDouble("cholesterol"),
+                        rs.getDouble("sodium"),
+                        rs.getDouble("carbs"),
+                        rs.getDouble("fiber"),
+                        rs.getDouble("sugar"),
+                        rs.getDouble("protein")
                 ));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return logs;
     }
 }

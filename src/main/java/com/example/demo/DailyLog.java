@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import org.jspecify.annotations.Nullable;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,10 +31,88 @@ public class DailyLog {
         return getValue(sql);
     }
 
+    public double getCarbs() {
+
+        String sql = """
+                SELECT SUM(f.carbs * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getFiber() {
+
+        String sql = """
+                SELECT SUM(f.fiber * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getSaturated_fat() {
+
+        String sql = """
+                SELECT SUM(f.saturated_fat * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getTrans_fat() {
+
+        String sql = """
+                SELECT SUM(f.trans_fat * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
     public double getSugars() {
 
         String sql = """
                 SELECT SUM(f.sugar * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+
+    public double getFats() {
+
+        String sql = """
+                SELECT SUM(f.fats * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getSodium() {
+
+        String sql = """
+                SELECT SUM(f.sodium * l.servings)
+                FROM food_logs l
+                JOIN foods f ON l.food_id = f.id
+                """;
+
+        return getValue(sql);
+    }
+
+    public double getCholesterol() {
+
+        String sql = """
+                SELECT SUM(f.cholesterol * l.servings)
                 FROM food_logs l
                 JOIN foods f ON l.food_id = f.id
                 """;
@@ -47,13 +127,10 @@ public class DailyLog {
              ResultSet rs = stmt.executeQuery()) {
 
             if (rs.next()) {
-
                 double value = rs.getDouble(1);
-
                 if (rs.wasNull()) {
                     return 0;
                 }
-
                 return value;
             }
 
