@@ -60,8 +60,13 @@ public class DashboardController {
         model.addAttribute("weeklyCalories", weeklyLog.getCalories());
         model.addAttribute("weeklyProtein", weeklyLog.getProteins());
         model.addAttribute("weeklySugar", weeklyLog.getSugars());
-
-        System.out.printf("Weekly Total: %f, %f, %f\n", weeklyLog.getCalories(), weeklyLog.getProteins(), weeklyLog.getSugars());
+        model.addAttribute("weeklyFats", weeklyLog.getFats());
+        model.addAttribute("weeklyCholesterol", weeklyLog.getCholesterol());
+        model.addAttribute("weeklyFiber", weeklyLog.getFiber());
+        model.addAttribute("weeklyCarbs", weeklyLog.getCarbs());
+        model.addAttribute("weeklySodium", weeklyLog.getSodium());
+        model.addAttribute("weeklySaturatedFat", weeklyLog.getSaturated_fat());
+        model.addAttribute("weeklyTransFat", weeklyLog.getTrans_fat());
 
         double dailyCalorieGoal = 0.0;
         double dailyProteinGoal = 0.0;
@@ -99,11 +104,14 @@ public class DashboardController {
 
         double weeklyCalorieGoal = 0.0;
         double weeklyProteinGoal = 0.0;
-        double weeklySugarGoal = 0.0;
+        double weeklyCarbsGoal = 0.0;
+        double weeklyCholesterolGoal = 0.0;
+        double weeklyFatsGoal = 0.0;
+        double weeklySodiumGoal = 0.0;
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "SELECT calories, proteins, sugar FROM weekly_goals ORDER BY id DESC LIMIT 1";
+            String sql = "SELECT calories, proteins, fats, sodium, cholesterol, carbs FROM weekly_goals ORDER BY id DESC LIMIT 1";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -111,9 +119,13 @@ public class DashboardController {
             if (rs.next()) {
                 weeklyCalorieGoal = rs.getDouble("calories");
                 weeklyProteinGoal = rs.getDouble("proteins");
-                weeklySugarGoal = rs.getDouble("sugars");
+                weeklyFatsGoal = rs.getDouble("fats");
+                weeklyCholesterolGoal = rs.getDouble("cholesterol");
+                weeklySodiumGoal = rs.getDouble("sodium");
+                weeklyCarbsGoal = rs.getDouble("carbs");
 
-                System.out.printf("Weekly Goal: %f, %f, %f\n", weeklyCalorieGoal, weeklyProteinGoal, weeklySugarGoal);
+
+                System.out.printf("Weekly Goal: %f, %f, %f\n", weeklyCalorieGoal, weeklyProteinGoal, weeklyFatsGoal);
             }
 
         } catch (Exception e) {
@@ -122,7 +134,10 @@ public class DashboardController {
 
         model.addAttribute("weeklyCaloriesGoal", weeklyCalorieGoal);
         model.addAttribute("weeklyProteinGoal", weeklyProteinGoal);
-        model.addAttribute("weeklySugarGoal", weeklySugarGoal);
+        model.addAttribute("weeklyCarbsGoal", weeklyCarbsGoal);
+        model.addAttribute("weeklyFatsGoal", weeklyFatsGoal);
+        model.addAttribute("weeklySodiumGoal", weeklySodiumGoal);
+        model.addAttribute("weeklyCholesterolGoal", weeklyCholesterolGoal);
 
         return "dashboard";
     }
@@ -171,12 +186,76 @@ public class DashboardController {
             return "redirect:/login";
         }
 
-        model.addAttribute("calorieGoal", 0);
-        model.addAttribute("fatsGoal", 0);
-        model.addAttribute("cholesterolGoal", 0);
-        model.addAttribute("sodiumGoal", 0);
-        model.addAttribute("carbsGoal", 0);
-        model.addAttribute("proteinGoal", 0);
+        double dailyCalorieGoal = 0.0;
+        double dailyProteinGoal = 0.0;
+        double dailyCarbsGoal = 0.0;
+        double dailyCholesterolGoal = 0.0;
+        double dailyFatsGoal = 0.0;
+        double dailySodiumGoal = 0.0;
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "SELECT calories, fats, cholesterol, sodium, carbs, proteins FROM daily_goals ORDER BY id DESC LIMIT 1";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                dailyCalorieGoal = rs.getDouble("calories");
+                dailyProteinGoal = rs.getDouble("proteins");
+                dailyCarbsGoal = rs.getDouble("carbs");
+                dailyCholesterolGoal = rs.getDouble("cholesterol");
+                dailyFatsGoal = rs.getDouble("fats");
+                dailySodiumGoal = rs.getDouble("sodium");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("calorieGoal", dailyCalorieGoal);
+        model.addAttribute("proteinGoal", dailyProteinGoal);
+        model.addAttribute("carbsGoal", dailyCarbsGoal);
+        model.addAttribute("cholesterolGoal", dailyCholesterolGoal);
+        model.addAttribute("fatsGoal", dailyFatsGoal);
+        model.addAttribute("sodiumGoal", dailySodiumGoal);
+
+        double weeklyCalorieGoal = 0.0;
+        double weeklyProteinGoal = 0.0;
+        double weeklyCarbsGoal = 0.0;
+        double weeklyCholesterolGoal = 0.0;
+        double weeklyFatsGoal = 0.0;
+        double weeklySodiumGoal = 0.0;
+
+        try (Connection conn = DatabaseManager.connect()) {
+
+            String sql = "SELECT calories, proteins, fats, sodium, cholesterol, carbs FROM weekly_goals ORDER BY id DESC LIMIT 1";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                weeklyCalorieGoal = rs.getDouble("calories");
+                weeklyProteinGoal = rs.getDouble("proteins");
+                weeklyFatsGoal = rs.getDouble("fats");
+                weeklyCholesterolGoal = rs.getDouble("cholesterol");
+                weeklySodiumGoal = rs.getDouble("sodium");
+                weeklyCarbsGoal = rs.getDouble("carbs");
+
+
+                System.out.printf("Weekly Goal: %f, %f, %f\n", weeklyCalorieGoal, weeklyProteinGoal, weeklyFatsGoal);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("weeklyCalorieGoal", weeklyCalorieGoal);
+        model.addAttribute("weeklyProteinGoal", weeklyProteinGoal);
+        model.addAttribute("weeklyCarbsGoal", weeklyCarbsGoal);
+        model.addAttribute("weeklyFatsGoal", weeklyFatsGoal);
+        model.addAttribute("weeklySodiumGoal", weeklySodiumGoal);
+        model.addAttribute("weeklyCholesterolGoal", weeklyCholesterolGoal);
 
         return "goals";
     }

@@ -49,7 +49,7 @@ public class FoodLog {
         return protein;
     }
 
-    public double getSugars() {
+    public double getSugar() {
         return sugar;
     }
 
@@ -67,5 +67,17 @@ public class FoodLog {
 
     public double getCholesterol() {
         return cholesterol;
+    }
+
+    public double getTrans_fat() {
+        return trans_fat;
+    }
+
+    public double getSaturated_fat() {
+        return saturated_fat;
+    }
+
+    public double getFiber() {
+        return fiber;
     }
 }

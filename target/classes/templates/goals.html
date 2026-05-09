@@ -59,15 +59,23 @@
   </div>
 
   <div class="card">
-    <h3>Current Goals</h3>
+    <h3>Daily Goals</h3>
     <p>Calories Goal: <span th:text="${calorieGoal}"></span></p>
     <p>Protein Goal: <span th:text="${proteinGoal}"></span></p>
+    <p>Fats Goal: <span th:text="${fatsGoal}"></span></p>
     <p>Carbs Goal: <span th:text="${carbsGoal}"></span></p>
+    <p>Cholesterol Goal: <span th:text="${cholesterolGoal}"></span></p>
+    <p>Sodium Goal: <span th:text="${sodiumGoal}"></span></p>
   </div>
 
   <div class="card">
-    <h3>Weekly Goals (Coming Soon)</h3>
-    <p>Track your weekly nutrient intake and compare against goals.</p>
+    <h3>Weekly Goals</h3>
+    <p>Calories Goal: <span th:text="${weeklyCalorieGoal}"></span></p>
+    <p>Protein Goal: <span th:text="${weeklyProteinGoal}"></span></p>
+    <p>Fats Goal: <span th:text="${weeklyFatsGoal}"></span></p>
+    <p>Carbs Goal: <span th:text="${weeklyCarbsGoal}"></span></p>
+    <p>Cholesterol Goal: <span th:text="${weeklyCholesterolGoal}"></span></p>
+    <p>Sodium Goal: <span th:text="${weeklySodiumGoal}"></span></p>
   </div>
 
   <a class="back-link" th:href="@{/dashboard}">← Back to Dashboard</a>

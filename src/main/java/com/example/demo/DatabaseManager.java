@@ -61,13 +61,9 @@ public class DatabaseManager {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     calories INTEGER,
                     proteins INTEGER,
-                    sugar INTEGER,
                     fats INTEGER,
-                    saturated_fat INTEGER,
-                    trans_fat INTEGER,
                     cholesterol INTEGER,
                     sodium INTEGER,
-                    fiber INTEGER,
                     carbs INTEGER
                 );
             """);

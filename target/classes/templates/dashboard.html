@@ -87,6 +87,34 @@
                 <div class="label">Sugar (g)</div>
                 <div class="value" th:text="${weeklySugar}">0</div>
             </div>
+            <div class="stat">
+                <div class="label">Fats (g)</div>
+                <div class="value" th:text="${weeklyFats}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Cholesterol (mg)</div>
+                <div class="value" th:text="${weeklyCholesterol}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sodium (mg)</div>
+                <div class="value" th:text="${weeklySodium}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Carbs (g)</div>
+                <div class="value" th:text="${weeklyCarbs}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fiber (g)</div>
+                <div class="value" th:text="${weeklyFiber}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Saturated Fats (g)</div>
+                <div class="value" th:text="${weeklySaturatedFat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Trans Fats (g)</div>
+                <div class="value" th:text="${weeklyTransFat}">0</div>
+            </div>
         </div>
     </section>
     <div class="card goals-summary">
@@ -113,6 +141,9 @@
                     <span th:text="${protein}"></span> /
                     <span th:text="${proteinGoal}"></span>
                 </p>
+                <p class="status"
+                   th:text="${protein > proteinGoal} ? 'Over goal' : 'On track'">
+                </p>
             </div>
 
             <div class="chart-box">
@@ -121,6 +152,9 @@
                 <p>
                     <span th:text="${carbs}"></span> /
                     <span th:text="${carbsGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${carbs > carbsGoal} ? 'Over goal' : 'On track'">
                 </p>
             </div>
 
@@ -131,6 +165,9 @@
                     <span th:text="${fats}"></span> /
                     <span th:text="${fatsGoal}"></span>
                 </p>
+                <p class="status"
+                   th:text="${fats > fatsGoal} ? 'Over goal' : 'On track'">
+                </p>
             </div>
 
             <div class="chart-box">
@@ -140,6 +177,9 @@
                     <span th:text="${cholesterol}"></span> /
                     <span th:text="${cholesterolGoal}"></span>
                 </p>
+                <p class="status"
+                   th:text="${cholesterol > cholesterolGoal} ? 'Over goal' : 'On track'">
+                </p>
             </div>
 
             <div class="chart-box">
@@ -148,6 +188,9 @@
                 <p>
                     <span th:text="${sodium}"></span> /
                     <span th:text="${sodiumGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${sodium > sodiumGoal} ? 'Over goal' : 'On track'">
                 </p>
             </div>
         </div>
