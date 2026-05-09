@@ -255,10 +255,3 @@ button:hover {
   max-width: 160px;
   margin: 0 auto 10px auto;
 }
-
-.goal-action-btns {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding-bottom: 10px;
-}

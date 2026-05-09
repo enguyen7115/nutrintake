@@ -6,6 +6,7 @@
     <title>Nutrintake - Dashboard</title>
     <!-- Link to shared stylesheet -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -116,12 +117,12 @@
     </section>
 </main>
 <script th:inline="javascript">
-    const calories = [[${calories}]];
-    const calorieGoal = [[${calorieGoal}]];
-    const protein = [[${protein}]];
-    const proteinGoal = [[${proteinGoal}]];
-    const sugar = [[${sugar}]];
-    const sugarGoal = [[${sugarGoal}]];
+    const calories = [[$,{calories}]];
+    const calorieGoal = [[$,{calorieGoal}]];
+    const protein = [[$,{protein}]];
+    const proteinGoal = [[$,{proteinGoal}]];
+    const sugar = [[$,{sugar}]];
+    const sugarGoal = [[$,{sugarGoal}]];
 
     function makeDonutChart(canvasId, value, goal) {
         let data;

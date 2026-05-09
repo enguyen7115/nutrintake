@@ -66,6 +66,7 @@ public class DashboardController {
         model.addAttribute("calorieGoal", calorieGoal);
         model.addAttribute("proteinGoal", proteinGoal);
         model.addAttribute("sugarGoal", sugarGoal);
+        model.addAttribute("activePage", "dashboard");
 
         return "dashboard";
     }
@@ -79,6 +80,7 @@ public class DashboardController {
         }
 
         model.addAttribute("foods", getFoods());
+        model.addAttribute("activePage", "foods");
 
         return "foods";
     }
@@ -109,6 +111,7 @@ public class DashboardController {
         model.addAttribute("calorieGoal", 2000);
         model.addAttribute("proteinGoal", 150);
         model.addAttribute("sugarGoal", 50);
+        model.addAttribute("activePage", "goals");
 
         return "goals";
     }

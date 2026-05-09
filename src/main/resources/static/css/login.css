@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.login-page {
+    min-height: 100vh;
+    background-image: url("../images/Nutrintake.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* branding */
+.hero {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 140px;
+}
+
+.logo {
+    font-size: 42px;
+    margin: 0;
+    color: #2A2A2A;
+}
+
+.tagline {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #666;
+}
+
+/* card */
+.login-card {
+    width: 360px;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+label {
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Form */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+
+    background: #6E96F5;
+    color: white;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.95;
+}
+
+/* Text */
+.muted {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #666;
+}

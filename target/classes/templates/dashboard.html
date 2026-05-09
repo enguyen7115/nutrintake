@@ -6,6 +6,7 @@
     <title>Nutrintake - Dashboard</title>
     <!-- Link to shared stylesheet -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -73,16 +74,8 @@
                 </p>
             </div>
         </div>
-        <div class="goal-action-btns">
-            <button class="back-link" onclick="window.location.href='/goals';">Edit Daily Goals</button>
-            <button class="delete-daily-goals" onclick="fetch('/goals?type=daily', { method: 'DELETE' });">Delete Daily Progress</button>
-        </div>
 
-        <!-- Place Weekly Goal Tracker Above Here -->
-        <div class="goal-action-btns">
-            <button class="back-link" onclick="window.location.href='/goals';">Edit Weekly Goals</button>
-            <button class="delete-daily-goals" onclick="fetch('/goals?type=weekly', { method: 'DELETE' });">Delete Weekly Progress</button>
-        </div>
+        <a class="back-link" th:href="@{/goals}">Edit Goals</a>
     </div>
 
     <!-- Main dashboard interaction area -->
