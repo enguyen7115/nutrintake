@@ -146,7 +146,7 @@
         </div>
         <div class="goal-action-btns">
             <button class="back-link" onclick="window.location.href='/goals';">Edit Daily Goals</button>
-            <button class="delete-daily-goals" onclick="fetch('/goals?type=daily', { method: 'DELETE' }); window.location.reload();">Delete Daily Progress</button>
+            <button class="delete-daily-goals" onclick="fetch('/goals?type=daily', { method: 'DELETE' }).then(() => window.location.reload());">Delete Daily Progress</button>
         </div>
     </div>
 
@@ -281,7 +281,7 @@
 
         <div class="goal-action-btns">
             <button class="back-link" onclick="window.location.href='/goals';">Edit Weekly Goals</button>
-            <button class="delete-daily-goals" onclick="fetch('/goals?type=weekly', { method: 'DELETE' }); window.location.reload();">Delete Weekly Progress</button>
+            <button class="delete-daily-goals" onclick="fetch('/goals?type=weekly', { method: 'DELETE' }).then(() => window.location.reload());">Delete Weekly Progress</button>
         </div>
     </div>
 
