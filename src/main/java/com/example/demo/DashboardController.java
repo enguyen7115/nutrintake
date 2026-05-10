@@ -35,6 +35,8 @@ public class DashboardController {
             return "redirect:/login";
         }
 
+        model.addAttribute("activePage", "dashboard");
+
         //Calculate daily totals, add to model
         model.addAttribute("calories", dailyLog.getCalories());
         model.addAttribute("fats", dailyLog.getFats());
@@ -132,7 +134,7 @@ public class DashboardController {
             e.printStackTrace();
         }
 
-        model.addAttribute("weeklyCaloriesGoal", weeklyCalorieGoal);
+        model.addAttribute("weeklyCalorieGoal", weeklyCalorieGoal);
         model.addAttribute("weeklyProteinGoal", weeklyProteinGoal);
         model.addAttribute("weeklyCarbsGoal", weeklyCarbsGoal);
         model.addAttribute("weeklyFatsGoal", weeklyFatsGoal);
@@ -151,6 +153,7 @@ public class DashboardController {
         }
 
         model.addAttribute("foods", getFoods());
+        model.addAttribute("activePage", "foods");
 
         return "foods";
     }
@@ -185,6 +188,8 @@ public class DashboardController {
         if (session.getAttribute("userEmail") == null) {
             return "redirect:/login";
         }
+
+        model.addAttribute("activePage", "goals");
 
         double dailyCalorieGoal = 0.0;
         double dailyProteinGoal = 0.0;
