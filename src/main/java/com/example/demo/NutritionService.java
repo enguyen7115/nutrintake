@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.DayOfWeek;
+import java.time.temporal.TemporalAdjusters;
 
 public class NutritionService {
     //Allows user to create a food item with a name and certain nutritional information and
@@ -147,9 +149,10 @@ public class NutritionService {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "DELETE FROM foods";
+            String sql = "DELETE FROM food_logs WHERE date = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, LocalDate.now().toString());
 
             stmt.executeUpdate();
 
@@ -162,9 +165,11 @@ public class NutritionService {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "DELETE FROM weekly_logs";
+            String sql = "DELETE FROM food_logs WHERE date BETWEEN ? AND ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, java.time.LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toString());
+            stmt.setString(2, java.time.LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toString());
 
             stmt.executeUpdate();
 
