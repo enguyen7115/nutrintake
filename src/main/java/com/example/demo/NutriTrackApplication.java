@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * and starts the web environment.
  *
  * Running this class will launch the application at:
- * http://localhost:8080/login
+ * http://localhost:8080/dashboard
  */
 @SpringBootApplication
 public class NutriTrackApplication {

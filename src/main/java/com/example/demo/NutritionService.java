@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.time.DayOfWeek;
-import java.time.temporal.TemporalAdjusters;
 
 public class NutritionService {
     //Allows user to create a food item with a name and certain nutritional information and
@@ -16,7 +14,7 @@ public class NutritionService {
         try (Connection conn = DatabaseManager.connect()) {
 
             String sql = "INSERT INTO foods(name, calories, fats, saturated_fat, trans_fat, cholesterol, sodium, " +
-                    "carbs, fiber, sugar, protein) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "carbs, fiber, sugars, protein) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
@@ -73,7 +71,7 @@ public class NutritionService {
         }
     }
 
-    // Allows user to submit goal for each day
+    //Allows user to submit goal for each day
     public void addDailyGoal(double caloriesGoal, double fatsGoal, double cholesterolGoal, double sodiumGoal,
                              double carbsGoal, double proteinGoal) {
 
@@ -98,31 +96,7 @@ public class NutritionService {
         }
     }
 
-    public void addWeeklyGoal(double caloriesGoal, double fatsGoal, double cholesterolGoal, double sodiumGoal,
-                              double carbsGoal, double proteinGoal) {
-
-        try (Connection conn = DatabaseManager.connect()) {
-
-            String sql = "INSERT INTO weekly_goals(calories, fats, cholesterol, sodium, carbs, proteins) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setDouble(1, caloriesGoal);
-            stmt.setDouble(2, fatsGoal);
-            stmt.setDouble(3, cholesterolGoal);
-            stmt.setDouble(4, sodiumGoal);
-            stmt.setDouble(5, carbsGoal);
-            stmt.setDouble(6, proteinGoal);
-
-            stmt.executeUpdate();
-        }
-
-        catch (Exception e) {
-            System.out.println("Exception in addWeeklyGoal: " + e);
-        }
-    }
-
-    // Adds current daily log to weekly log database
+    //Adds current daily log to weekly log database
     //TODO: Add daily log to weekly log database through frontend call
     public void addWeekly(double totalCalories, double totalProtein, double totalSugar) {
 
@@ -137,6 +111,7 @@ public class NutritionService {
             stmt.setDouble(4, totalSugar);
 
             stmt.executeUpdate();
+
         }
 
         catch (Exception e) {
@@ -145,14 +120,14 @@ public class NutritionService {
 
     }
 
+    //TODO: Delete daily log through frontend call to database
     public void deleteDaily() {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "DELETE FROM food_logs WHERE date = ?";
+            String sql = "DELETE FROM foods";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, LocalDate.now().toString());
 
             stmt.executeUpdate();
 
@@ -161,15 +136,14 @@ public class NutritionService {
         }
     }
 
+    //TODO: Delete entries from weekly log through frontend call
     public void deleteWeekly() {
 
         try (Connection conn = DatabaseManager.connect()) {
 
-            String sql = "DELETE FROM food_logs WHERE date BETWEEN ? AND ?";
+            String sql = "DELETE FROM weekly_logs";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, java.time.LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toString());
-            stmt.setString(2, java.time.LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toString());
 
             stmt.executeUpdate();
 
@@ -180,7 +154,7 @@ public class NutritionService {
     }
 
     //TODO: Create call to weekly log database and save information
-    public void saveToWeekly() {
+    public void saveToWeekly(){
         DailyLog dailyLog = new DailyLog();
 
         double calories = dailyLog.getCalories();
@@ -188,6 +162,7 @@ public class NutritionService {
         double sugar = dailyLog.getSugars();
 
         addWeekly(calories, protein, sugar);
+
     }
 
 

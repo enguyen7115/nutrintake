@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link rel="stylesheet" th:href="@{/css/header.css}">
-</head>
 <body>
 <header class="header" th:fragment="header">
     <div class="header-inner container">
@@ -11,23 +8,9 @@
         </div>
 
         <nav class="nav">
-            <a th:href="@{/dashboard}"
-               class="nav-link"
-               th:classappend="${activePage == 'dashboard'} ? ' active'">
-                Dashboard
-            </a>
-
-            <a th:href="@{/foods}"
-               class="nav-link"
-               th:classappend="${activePage == 'foods'} ? ' active'">
-                Foods
-            </a>
-
-            <a th:href="@{/goals}"
-               class="nav-link"
-               th:classappend="${activePage == 'goals'} ? ' active'">
-                Goals
-            </a>
+            <a th:href="@{/dashboard}" class="nav-link">Dashboard</a>
+            <a th:href="@{/foods}" class="nav-link">Foods</a>
+            <a th:href="@{/goals}" class="nav-link">Goals</a>
         </nav>
 
         <div class="header-actions">

@@ -2,24 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Nutrintake - Register</title>
-    <link rel="stylesheet" th:href="@{/css/register.css}">
+    <title>NutriTrack - Register</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-
-<main class="register-page">
-
-    <header class="hero">
-        <h1 class="logo">Nutrintake</h1>
-        <p class="tagline">Track. Nourish. Thrive.</p>
-    </header>
-
-    <section class="register-card">
+<main class="container">
+    <section class="card" style="max-width: 420px; margin: 60px auto;">
         <h2>Create Account</h2>
 
         <p th:if="${msg}" th:text="${msg}" class="flash"></p>
 
-        <form th:action="@{/register}" method="post" class="form">
+        <form th:action="@{/register}" method="post" class="small-form">
             <label>Email
                 <input type="email" name="email" required placeholder="your email" />
             </label>
@@ -32,16 +25,16 @@
                 <input type="password" name="confirmPassword" required minlength="4" placeholder="Confirm password" />
             </label>
 
-            <button type="submit">Sign Up</button>
+            <div class="form-actions">
+                <button type="submit">Sign Up</button>
+            </div>
         </form>
 
-        <p class="muted">
+        <p class="muted" style="margin-top: 12px;">
             Already have an account?
             <a th:href="@{/login}">Login</a>
         </p>
     </section>
-
 </main>
-
 </body>
 </html>
