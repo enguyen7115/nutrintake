@@ -49,8 +49,8 @@ public class FoodLog {
         return protein;
     }
 
-    public double getSugars() {
-        return sugars;
+    public double getSugar() {
+        return sugar;
     }
 
     public double getCarbs() {

@@ -6,12 +6,13 @@
     <title>Nutrintake - Dashboard</title>
     <!-- Link to shared stylesheet -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <!-- Reusable navigation header fragment -->
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main class="container">
 
@@ -33,8 +34,36 @@
                 <div class="value" th:text="${protein}">0</div>
             </div>
             <div class="stat">
+                <div class="label">Carbs (g)</div>
+                <div class="value" th:text="${carbs}">0</div>
+            </div>
+            <div class="stat">
                 <div class="label">Sugar (g)</div>
                 <div class="value" th:text="${sugar}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fats (g)</div>
+                <div class="value" th:text="${fats}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Saturated Fats (g)</div>
+                <div class="value" th:text="${saturated_fat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Trans Fats (g)</div>
+                <div class="value" th:text="${trans_fat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Cholesterol (mg)</div>
+                <div class="value" th:text="${cholesterol}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fiber (g)</div>
+                <div class="value" th:text="${fiber}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sodium (mg)</div>
+                <div class="value" th:text="${sodium}">0</div>
             </div>
         </div>
     </section>
@@ -77,9 +106,225 @@
         <a class="back-link" th:href="@{/goals}">Edit Goals</a>
     </div>
 
+    <div class="card goals-summary">
+        <h3>Daily Goals Progress</h3>
+        <div class="chart-row">
+            <div class="chart-box">
+                <h4>Calories</h4>
+                <canvas id="calorieChart"></canvas>
+                <p>
+                    <span th:text="${calories}"></span> /
+                    <span th:text="${calorieGoal}"></span>
+                </p>
+
+                <p class="status"
+                   th:text="${calories > calorieGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Protein</h4>
+                <canvas id="proteinChart"></canvas>
+                <p>
+                    <span th:text="${protein}"></span> /
+                    <span th:text="${proteinGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${protein > proteinGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Fats</h4>
+                <canvas id="fatsChart"></canvas>
+                <p>
+                    <span th:text="${fats}"></span> /
+                    <span th:text="${fatsGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${fats > fatsGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Carbs</h4>
+                <canvas id="carbsChart"></canvas>
+                <p>
+                    <span th:text="${carbs}"></span> /
+                    <span th:text="${carbsGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${carbs > carbsGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Cholesterol</h4>
+                <canvas id="cholesterolChart"></canvas>
+                <p>
+                    <span th:text="${cholesterol}"></span> /
+                    <span th:text="${cholesterolGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${cholesterol > cholesterolGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Sodium</h4>
+                <canvas id="sodiumChart"></canvas>
+                <p>
+                    <span th:text="${sodium}"></span> /
+                    <span th:text="${sodiumGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${sodium > sodiumGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+        </div>
+        <div class="goal-action-btns">
+            <button class="back-link" onclick="window.location.href='/goals';">Edit Daily Goals</button>
+            <button class="delete-daily-goals" onclick="fetch('/goals?type=daily', { method: 'DELETE' }).then(() => window.location.reload());">Delete Daily Progress</button>
+        </div>
+    </div>
+
+    <section class="card totals">
+        <h2>
+            This Week's Totals —
+            <span th:text="${weekStart}"></span>
+            to
+            <span th:text="${weekEnd}"></span>
+        </h2>
+
+        <div class="totals-grid">
+            <div class="stat">
+                <div class="label">Calories</div>
+                <div class="value" th:text="${weeklyCalories}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Protein (g)</div>
+                <div class="value" th:text="${weeklyProtein}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Carbs (g)</div>
+                <div class="value" th:text="${weeklyCarbs}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sugar (g)</div>
+                <div class="value" th:text="${weeklySugar}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fats (g)</div>
+                <div class="value" th:text="${weeklyFats}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Saturated Fats (g)</div>
+                <div class="value" th:text="${weeklySaturatedFat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Trans Fats (g)</div>
+                <div class="value" th:text="${weeklyTransFat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Cholesterol (mg)</div>
+                <div class="value" th:text="${weeklyCholesterol}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fiber (g)</div>
+                <div class="value" th:text="${weeklyFiber}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sodium (mg)</div>
+                <div class="value" th:text="${weeklySodium}">0</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="card goals-summary">
+        <h3>Weekly Goals Progress</h3>
+        <div class="chart-row">
+            <div class="chart-box">
+                <h4>Calories</h4>
+                <canvas id="weeklyCalorieChart"></canvas>
+                <p>
+                    <span th:text="${weeklyCalories}"></span> /
+                    <span th:text="${weeklyCalorieGoal}"></span>
+                </p>
+
+                <p class="status"
+                   th:text="${weeklyCalories > weeklyCalorieGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Protein</h4>
+                <canvas id="weeklyProteinChart"></canvas>
+                <p>
+                    <span th:text="${weeklyProtein}"></span> /
+                    <span th:text="${weeklyProteinGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${weeklyProtein > weeklyProteinGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Fats</h4>
+                <canvas id="weeklyFatsChart"></canvas>
+                <p>
+                    <span th:text="${weeklyFats}"></span> /
+                    <span th:text="${weeklyFatsGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${weeklyFats > weeklyFatsGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Carbs</h4>
+                <canvas id="weeklyCarbsChart"></canvas>
+                <p>
+                    <span th:text="${weeklyCarbs}"></span> /
+                    <span th:text="${weeklyCarbsGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${weeklyCarbs > weeklyCarbsGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Cholesterol</h4>
+                <canvas id="weeklyCholesterolChart"></canvas>
+                <p>
+                    <span th:text="${weeklyCholesterol}"></span> /
+                    <span th:text="${weeklyCholesterolGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${weeklyCholesterol > weeklyCholesterolGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Sodium</h4>
+                <canvas id="weeklySodiumChart"></canvas>
+                <p>
+                    <span th:text="${weeklySodium}"></span> /
+                    <span th:text="${weeklySodiumGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${weeklySodium > weeklySodiumGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+        </div>
+
+        <div class="goal-action-btns">
+            <button class="back-link" onclick="window.location.href='/goals';">Edit Weekly Goals</button>
+            <button class="delete-daily-goals" onclick="fetch('/goals?type=weekly', { method: 'DELETE' }).then(() => window.location.reload());">Delete Weekly Progress</button>
+        </div>
+    </div>
+
     <!-- Main dashboard interaction area -->
     <section class="card input-and-list">
-
         <!-- Loop through foods list -->
         <div class="left">
             <h3>Add Food (placeholder)</h3>
@@ -120,8 +365,28 @@
     const calorieGoal = [[${calorieGoal}]];
     const protein = [[${protein}]];
     const proteinGoal = [[${proteinGoal}]];
-    const sugar = [[${sugar}]];
-    const sugarGoal = [[${sugarGoal}]];
+    const carbs = [[${carbs}]];
+    const carbsGoal = [[${carbsGoal}]];
+    const fats = [[${fats}]];
+    const fatsGoal = [[${fatsGoal}]];
+    const cholesterol = [[${cholesterol}]];
+    const cholesterolGoal = [[${cholesterolGoal}]];
+    const sodium = [[${sodium}]];
+    const sodiumGoal = [[${sodiumGoal}]];
+
+    const weeklyCalories = [[${weeklyCalories}]];
+    const weeklyCalorieGoal = [[${weeklyCalorieGoal}]];
+    const weeklyProtein = [[${weeklyProtein}]];
+    const weeklyProteinGoal = [[${weeklyProteinGoal}]];
+    const weeklyCarbs = [[${weeklyCarbs}]];
+    const weeklyCarbsGoal = [[${weeklyCarbsGoal}]];
+    const weeklyFats = [[${weeklyFats}]];
+    const weeklyFatsGoal = [[${weeklyFatsGoal}]];
+    const weeklyCholesterol = [[${weeklyCholesterol}]];
+    const weeklyCholesterolGoal = [[${weeklyCholesterolGoal}]];
+    const weeklySodium = [[${weeklySodium}]];
+    const weeklySodiumGoal = [[${weeklySodiumGoal}]];
+
 
     function makeDonutChart(canvasId, value, goal) {
         let data;
@@ -159,7 +424,17 @@
 
     makeDonutChart('calorieChart', calories, calorieGoal);
     makeDonutChart('proteinChart', protein, proteinGoal);
-    makeDonutChart('sugarChart', sugar, sugarGoal);
+    makeDonutChart('carbsChart', carbs, carbsGoal);
+    makeDonutChart('fatsChart', fats, fatsGoal);
+    makeDonutChart('cholesterolChart', cholesterol, cholesterolGoal);
+    makeDonutChart('sodiumChart', sodium, sodiumGoal);
+
+    makeDonutChart('weeklyCalorieChart', weeklyCalories, weeklyCalorieGoal);
+    makeDonutChart('weeklyProteinChart', weeklyProtein, weeklyProteinGoal);
+    makeDonutChart('weeklyCarbsChart', weeklyCarbs, weeklyCarbsGoal);
+    makeDonutChart('weeklyFatsChart', weeklyFats, weeklyFatsGoal);
+    makeDonutChart('weeklyCholesterolChart', weeklyCholesterol, weeklyCholesterolGoal);
+    makeDonutChart('weeklySodiumChart', weeklySodium, weeklySodiumGoal);
 </script>
 </body>
 </html>

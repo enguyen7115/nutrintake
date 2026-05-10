@@ -67,44 +67,6 @@
             </div>
         </div>
     </section>
-    <div class="card goals-summary">
-        <h3>Goals Progress</h3>
-
-        <div class="chart-row">
-            <div class="chart-box">
-                <h4>Calories</h4>
-                <canvas id="calorieChart"></canvas>
-                <p>
-                    <span th:text="${calories}"></span> /
-                    <span th:text="${calorieGoal}"></span>
-                </p>
-
-                <p class="status"
-                   th:text="${calories > calorieGoal} ? 'Over goal' : 'On track'">
-                </p>
-            </div>
-
-            <div class="chart-box">
-                <h4>Protein</h4>
-                <canvas id="proteinChart"></canvas>
-                <p>
-                    <span th:text="${protein}"></span> /
-                    <span th:text="${proteinGoal}"></span>
-                </p>
-            </div>
-
-            <div class="chart-box">
-                <h4>Sugar</h4>
-                <canvas id="sugarChart"></canvas>
-                <p>
-                    <span th:text="${sugar}"></span> /
-                    <span th:text="${sugarGoal}"></span>
-                </p>
-            </div>
-        </div>
-
-        <a class="back-link" th:href="@{/goals}">Edit Goals</a>
-    </div>
 
     <div class="card goals-summary">
         <h3>Daily Goals Progress</h3>

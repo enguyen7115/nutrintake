@@ -4,9 +4,10 @@
   <title>Goals</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="container">
   <h1>🎯 Nutrition Goals</h1>
@@ -18,7 +19,7 @@
 
       <div class="input-group">
         <label>Goal Type</label>
-        <select name="goalType">
+        <select name="goalType" th:value="${goalType}">
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>
         </select>
@@ -26,22 +27,32 @@
 
       <div class="input-group">
         <label>Calories</label>
-        <input type="number" step="0.1" name="calorieGoal" th:value="${calorieGoal}" required>
+        <input type="number" step="0.1" min="0" name="calorieGoal" th:value="${calorieGoal}" required>
       </div>
 
       <div class="input-group">
         <label>Protein (g)</label>
-        <input type="number" step="0.1" name="proteinGoal" th:value="${proteinGoal}" required>
+        <input type="number" step="0.1" min="0" name="proteinGoal" th:value="${proteinGoal}" required>
       </div>
 
       <div class="input-group">
-        <label>Sugar (g)</label>
-        <input type="number" step="0.1" name="sugarGoal" th:value="${sugarGoal}" required>
+        <label>Fats (g)</label>
+        <input type="number" step="0.1" min="0" name="fatsGoal" th:value="${fatsGoal}" required>
       </div>
 
       <div class="input-group">
         <label>Carbs (g)</label>
-        <input type="number" step="0.1" name="carbGoal">
+        <input type="number" step="0.1" min="0" name="carbsGoal" th:value="${carbsGoal}" required>
+      </div>
+
+      <div class="input-group">
+        <label>Cholesterol (mg)</label>
+        <input type="number" step="0.1" min="0" name="cholesterolGoal" th:value="${cholesterolGoal}" required>
+      </div>
+
+      <div class="input-group">
+        <label>Sodium (mg)</label>
+        <input type="number" step="0.1" min="0" name="sodiumGoal" th:value="${sodiumGoal}" required>
       </div>
 
       <button type="submit" class="btn">Save Goals</button>
@@ -49,15 +60,23 @@
   </div>
 
   <div class="card">
-    <h3>Current Goals</h3>
+    <h3>Daily Goals</h3>
     <p>Calories Goal: <span th:text="${calorieGoal}"></span></p>
     <p>Protein Goal: <span th:text="${proteinGoal}"></span></p>
-    <p>Sugar Goal: <span th:text="${sugarGoal}"></span></p>
+    <p>Fats Goal: <span th:text="${fatsGoal}"></span></p>
+    <p>Carbs Goal: <span th:text="${carbsGoal}"></span></p>
+    <p>Cholesterol Goal: <span th:text="${cholesterolGoal}"></span></p>
+    <p>Sodium Goal: <span th:text="${sodiumGoal}"></span></p>
   </div>
 
   <div class="card">
-    <h3>Weekly Goals (Coming Soon)</h3>
-    <p>Track your weekly nutrient intake and compare against goals.</p>
+    <h3>Weekly Goals</h3>
+    <p>Calories Goal: <span th:text="${weeklyCalorieGoal}"></span></p>
+    <p>Protein Goal: <span th:text="${weeklyProteinGoal}"></span></p>
+    <p>Fats Goal: <span th:text="${weeklyFatsGoal}"></span></p>
+    <p>Carbs Goal: <span th:text="${weeklyCarbsGoal}"></span></p>
+    <p>Cholesterol Goal: <span th:text="${weeklyCholesterolGoal}"></span></p>
+    <p>Sodium Goal: <span th:text="${weeklySodiumGoal}"></span></p>
   </div>
 
   <a class="back-link" th:href="@{/dashboard}">← Back to Dashboard</a>
