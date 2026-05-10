@@ -140,7 +140,6 @@ public class DashboardController {
 
         return "dashboard";
     }
-
     //Displays the foods management page
     @GetMapping("/foods")
     public String foods(Model model, HttpSession session) {

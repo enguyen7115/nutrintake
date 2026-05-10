@@ -1,9 +1,7 @@
-# nutrintake
-Backend for Nutrintake Nutrient Tracking App
+# Nutrintake
+Nutrintake: The Nutrient Tracking App
 Nutrintake is a tracking app that allows users to track the foods they eat and their nutritional value; along with setting goals and limits for themselves
 in regards to the nutrients they consume.
-TODO: Include running instructions
-Main will contain stable code only; features in progress should have their own branches.
 
 
 ## Frontend Implementation
@@ -65,3 +63,37 @@ The goals page will allow users to:
 - Set daily nutrient limits
 - Set weekly nutrient limits
 - View whether totals exceed limits
+
+
+## Backend Implementation
+The backend of Nutrintake uses SQLite, and is responsible for managing data storage, business logic, and communication with the frontend.
+
+## Implemented
+- User registration, including password hashing and login authentication
+- Add and store food items in database
+- Logging of daily food servings
+- Calculation of nutrient totals
+- Goal information storage (note: currently no frontend connectivity)
+
+## Planned Backend Features
+- Weekly log retrieval and storage
+- Goal persistance
+- User-based data
+- Food and log deletion and editing
+
+## Running the Backend
+Backend is automatically ran when the application is ran. When the application starts:
+1. An SQLite database is created if it does not already exist
+2. Tables are initialized
+3. Controllers handle requests
+4. Data is stroed and retrieved from nutrition.db
+The database file is stored in the project root and can be viewed with the IntelliJ database viewer.
+
+## SQLite Information
+Note: SQLite JAR file required for database implementation and application start.
+1. Download sqlite-jdbc-3.51.3.0.jar from https://github.com/xerial/sqlite-jdbc/releases/tag/3.51.3.0
+2. In IntelliJ, go to File > Project Structure > Modules
+3. From there, click the + button over the "Export" column
+4. Click "1 JARs or Directories"
+5. Select the sqlite-jdbc-3.51.3.0.jar
+6. Click "Apply" and "OK"
