@@ -125,9 +125,6 @@ public class DashboardController {
                 weeklyCholesterolGoal = rs.getDouble("cholesterol");
                 weeklySodiumGoal = rs.getDouble("sodium");
                 weeklyCarbsGoal = rs.getDouble("carbs");
-
-
-                System.out.printf("Weekly Goal: %f, %f, %f\n", weeklyCalorieGoal, weeklyProteinGoal, weeklyFatsGoal);
             }
 
         } catch (Exception e) {
