@@ -4,9 +4,10 @@
   <title>Goals</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="container">
   <h1>🎯 Nutrition Goals</h1>

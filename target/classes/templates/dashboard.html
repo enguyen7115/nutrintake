@@ -6,12 +6,13 @@
     <title>Nutrintake - Dashboard</title>
     <!-- Link to shared stylesheet -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <!-- Reusable navigation header fragment -->
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main class="container">
 
@@ -33,6 +34,10 @@
                 <div class="value" th:text="${protein}">0</div>
             </div>
             <div class="stat">
+                <div class="label">Carbs (g)</div>
+                <div class="value" th:text="${carbs}">0</div>
+            </div>
+            <div class="stat">
                 <div class="label">Sugar (g)</div>
                 <div class="value" th:text="${sugar}">0</div>
             </div>
@@ -41,28 +46,24 @@
                 <div class="value" th:text="${fats}">0</div>
             </div>
             <div class="stat">
-                <div class="label">Cholesterol (mg)</div>
-                <div class="value" th:text="${cholesterol}">0</div>
-            </div>
-            <div class="stat">
-                <div class="label">Sodium (mg)</div>
-                <div class="value" th:text="${sodium}">0</div>
-            </div>
-            <div class="stat">
-                <div class="label">Carbs (g)</div>
-                <div class="value" th:text="${carbs}">0</div>
-            </div>
-            <div class="stat">
-                <div class="label">Fiber (g)</div>
-                <div class="value" th:text="${fiber}">0</div>
-            </div>
-            <div class="stat">
                 <div class="label">Saturated Fats (g)</div>
                 <div class="value" th:text="${saturated_fat}">0</div>
             </div>
             <div class="stat">
                 <div class="label">Trans Fats (g)</div>
                 <div class="value" th:text="${trans_fat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Cholesterol (mg)</div>
+                <div class="value" th:text="${cholesterol}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fiber (g)</div>
+                <div class="value" th:text="${fiber}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sodium (mg)</div>
+                <div class="value" th:text="${sodium}">0</div>
             </div>
         </div>
     </section>
@@ -96,18 +97,6 @@
             </div>
 
             <div class="chart-box">
-                <h4>Carbs</h4>
-                <canvas id="carbsChart"></canvas>
-                <p>
-                    <span th:text="${carbs}"></span> /
-                    <span th:text="${carbsGoal}"></span>
-                </p>
-                <p class="status"
-                   th:text="${carbs > carbsGoal} ? 'Over goal' : 'On track'">
-                </p>
-            </div>
-
-            <div class="chart-box">
                 <h4>Fats</h4>
                 <canvas id="fatsChart"></canvas>
                 <p>
@@ -116,6 +105,18 @@
                 </p>
                 <p class="status"
                    th:text="${fats > fatsGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Carbs</h4>
+                <canvas id="carbsChart"></canvas>
+                <p>
+                    <span th:text="${carbs}"></span> /
+                    <span th:text="${carbsGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${carbs > carbsGoal} ? 'Over goal' : 'On track'">
                 </p>
             </div>
 
@@ -167,6 +168,10 @@
                 <div class="value" th:text="${weeklyProtein}">0</div>
             </div>
             <div class="stat">
+                <div class="label">Carbs (g)</div>
+                <div class="value" th:text="${weeklyCarbs}">0</div>
+            </div>
+            <div class="stat">
                 <div class="label">Sugar (g)</div>
                 <div class="value" th:text="${weeklySugar}">0</div>
             </div>
@@ -175,28 +180,24 @@
                 <div class="value" th:text="${weeklyFats}">0</div>
             </div>
             <div class="stat">
-                <div class="label">Cholesterol (mg)</div>
-                <div class="value" th:text="${weeklyCholesterol}">0</div>
-            </div>
-            <div class="stat">
-                <div class="label">Sodium (mg)</div>
-                <div class="value" th:text="${weeklySodium}">0</div>
-            </div>
-            <div class="stat">
-                <div class="label">Carbs (g)</div>
-                <div class="value" th:text="${weeklyCarbs}">0</div>
-            </div>
-            <div class="stat">
-                <div class="label">Fiber (g)</div>
-                <div class="value" th:text="${weeklyFiber}">0</div>
-            </div>
-            <div class="stat">
                 <div class="label">Saturated Fats (g)</div>
                 <div class="value" th:text="${weeklySaturatedFat}">0</div>
             </div>
             <div class="stat">
                 <div class="label">Trans Fats (g)</div>
                 <div class="value" th:text="${weeklyTransFat}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Cholesterol (mg)</div>
+                <div class="value" th:text="${weeklyCholesterol}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Fiber (g)</div>
+                <div class="value" th:text="${weeklyFiber}">0</div>
+            </div>
+            <div class="stat">
+                <div class="label">Sodium (mg)</div>
+                <div class="value" th:text="${weeklySodium}">0</div>
             </div>
         </div>
     </section>
@@ -230,18 +231,6 @@
             </div>
 
             <div class="chart-box">
-                <h4>Carbs</h4>
-                <canvas id="weeklyCarbsChart"></canvas>
-                <p>
-                    <span th:text="${weeklyCarbs}"></span> /
-                    <span th:text="${weeklyCarbsGoal}"></span>
-                </p>
-                <p class="status"
-                   th:text="${weeklyCarbs > weeklyCarbsGoal} ? 'Over goal' : 'On track'">
-                </p>
-            </div>
-
-            <div class="chart-box">
                 <h4>Fats</h4>
                 <canvas id="weeklyFatsChart"></canvas>
                 <p>
@@ -250,6 +239,18 @@
                 </p>
                 <p class="status"
                    th:text="${weeklyFats > weeklyFatsGoal} ? 'Over goal' : 'On track'">
+                </p>
+            </div>
+
+            <div class="chart-box">
+                <h4>Carbs</h4>
+                <canvas id="weeklyCarbsChart"></canvas>
+                <p>
+                    <span th:text="${weeklyCarbs}"></span> /
+                    <span th:text="${weeklyCarbsGoal}"></span>
+                </p>
+                <p class="status"
+                   th:text="${weeklyCarbs > weeklyCarbsGoal} ? 'Over goal' : 'On track'">
                 </p>
             </div>
 
@@ -277,7 +278,7 @@
                 </p>
             </div>
         </div>
-        <!-- Place Weekly Goal Tracker Above Here -->
+
         <div class="goal-action-btns">
             <button class="back-link" onclick="window.location.href='/goals';">Edit Weekly Goals</button>
             <button class="delete-daily-goals" onclick="fetch('/goals?type=weekly', { method: 'DELETE' }); window.location.reload();">Delete Weekly Progress</button>
