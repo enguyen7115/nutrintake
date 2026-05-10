@@ -14,7 +14,10 @@ public class AuthController {
 
     //displays the login page (GET request)
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(HttpSession session) {
+        if (session.getAttribute("userEmail") != null) {
+            return "redirect:/dashboard";
+        }
         return "login";
     }
 
@@ -37,7 +40,10 @@ public class AuthController {
 
     //Displays the sign-up page (GET request).
     @GetMapping("/register")
-    public String registerPage() {
+    public String registerPage(HttpSession session) {
+        if (session.getAttribute("userEmail") != null) {
+            return "redirect:/dashboard";
+        }
         return "register";
     }
 
@@ -63,6 +69,12 @@ public class AuthController {
         registerUser.saveUser(email, salt, hash);
         session.setAttribute("userEmail", email);
         return "redirect:/dashboard";
+    }
+
+    @GetMapping("/logout")
+    public String getLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 
     //Logs the user out by invalidating the session.

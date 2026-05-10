@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8" />
-  <title>NutriTrack - Foods</title>
+  <title>Nutrintake - Foods</title>
   <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main class="container">
   <section class="card">
@@ -18,14 +19,36 @@
         <input name="name" placeholder="e.g., Oatmeal" required />
       </label>
       <label>Calories (per serving)
-        <input name="calories" type="number" step="0.1" min="0" required />
+        <input name="calories" type="number" step="0.1" min="0" placeholder="0" required />
       </label>
       <label>Protein (g per serving)
-        <input name="protein" type="number" step="0.1" min="0" required />
+        <input name="protein" type="number" step="0.1" min="0" placeholder="0" required />
+      </label>
+      <label>Carbs (g per serving)
+        <input name="carbs" type="number" step="0.1" min="0" placeholder="0" required />
       </label>
       <label>Sugar (g per serving)
-        <input name="sugar" type="number" step="0.1" min="0" required />
+        <input name="sugar" type="number" step="0.1" min="0" placeholder="0" required />
       </label>
+      <label>Fats (g per serving)
+        <input name="fats" type="number" step="0.1" min="0" placeholder="0" required />
+      </label>
+      <label>Saturated Fats (g per serving)
+        <input name="saturated_fat" type="number" step="0.1" min="0" placeholder="0" required />
+      </label>
+      <label>Trans Fats (g per serving)
+        <input name="trans_fat" type="number" step="0.1" min="0" placeholder="0" required />
+      </label>
+      <label>Cholesterol (mg per serving)
+        <input name="cholesterol" type="number" step="0.1" min="0" placeholder="0" required />
+      </label>
+      <label>Fiber (g per serving)
+        <input name="fiber" type="number" step="0.1" min="0" placeholder="0" required />
+      </label>
+      <label>Sodium (mg per serving)
+        <input name="sodium" type="number" step="0.1" min="0" placeholder="0" required />
+      </label>
+
 
       <div class="form-actions">
         <button type="submit">Create Food</button>
@@ -37,14 +60,21 @@
     <h3>Saved Foods</h3>
     <table class="table">
       <thead>
-      <tr><th>Name</th><th>Calories</th><th>Protein</th><th>Sugar</th></tr>
+      <tr><th>Name</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Sugar</th><th>Fats</th><th>Saturated Fat</th><th>Trans Fat</th><th>Cholesterol</th><th>Fiber</th><th>Sodium</th></tr>
       </thead>
       <tbody>
       <tr th:each="f : ${foods}">
         <td th:text="${f.foodName}">Oatmeal</td>
         <td th:text="${f.calories}">300</td>
         <td th:text="${f.protein}">10</td>
+        <td th:text="${f.carbs}">5</td>
         <td th:text="${f.sugar}">5</td>
+        <td th:text="${f.fats}">5</td>
+        <td th:text="${f.saturated_fat}">5</td>
+        <td th:text="${f.trans_fat}">5</td>
+        <td th:text="${f.cholesterol}">5</td>
+        <td th:text="${f.fiber}">5</td>
+        <td th:text="${f.sodium}">5</td>
       </tr>
       <tr th:if="${#lists.isEmpty(foods)}">
         <td colspan="4" class="muted">No foods yet. Add one above.</td>

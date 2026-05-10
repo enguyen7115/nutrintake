@@ -9,7 +9,7 @@ public class FoodLog {
     private double protein;
     private double carbs;
     private double fiber;
-    private double sugars;
+    private double sugar;
     private double fats;
     private double saturated_fat;
     private double trans_fat;
@@ -17,13 +17,13 @@ public class FoodLog {
     private double cholesterol;
 
     public FoodLog(String foodName, double servings, double calories, double protein, double carbs, double fiber,
-                   double sugars, double fats, double saturated_fat, double trans_fat, double sodium, double cholesterol) {
+                   double sugar, double fats, double saturated_fat, double trans_fat, double sodium, double cholesterol) {
 
         this.foodName = foodName;
         this.servings = servings;
         this.calories = calories;
         this.protein = protein;
-        this.sugars = sugars;
+        this.sugar = sugar;
         this.fiber = fiber;
         this.carbs = carbs;
         this.fats = fats;
@@ -53,11 +53,31 @@ public class FoodLog {
         return sugars;
     }
 
-    public double getCarbs() {return carbs;}
+    public double getCarbs() {
+        return carbs;
+    }
 
-    public double getFats() {return fats;}
+    public double getFats() {
+        return fats;
+    }
 
-    public double getSodium() {return sodium;}
+    public double getSodium() {
+        return sodium;
+    }
 
-    public double getCholesterol() {return cholesterol;}
+    public double getCholesterol() {
+        return cholesterol;
+    }
+
+    public double getTrans_fat() {
+        return trans_fat;
+    }
+
+    public double getSaturated_fat() {
+        return saturated_fat;
+    }
+
+    public double getFiber() {
+        return fiber;
+    }
 }
