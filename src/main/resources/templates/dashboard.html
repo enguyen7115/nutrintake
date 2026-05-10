@@ -117,12 +117,12 @@
     </section>
 </main>
 <script th:inline="javascript">
-    const calories = [[$,{calories}]];
-    const calorieGoal = [[$,{calorieGoal}]];
-    const protein = [[$,{protein}]];
-    const proteinGoal = [[$,{proteinGoal}]];
-    const sugar = [[$,{sugar}]];
-    const sugarGoal = [[$,{sugarGoal}]];
+    const calories = [[${calories}]];
+    const calorieGoal = [[${calorieGoal}]];
+    const protein = [[${protein}]];
+    const proteinGoal = [[${proteinGoal}]];
+    const sugar = [[${sugar}]];
+    const sugarGoal = [[${sugarGoal}]];
 
     function makeDonutChart(canvasId, value, goal) {
         let data;
